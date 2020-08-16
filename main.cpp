@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define MAX2(a,b) (a) > (b) ? (a) : (b)
+#define MAX2 (a,b) (a) > (b) ? (a) : (b)
 
 class Neuron{
 public:
@@ -12,7 +12,7 @@ public:
         return x;
 
         //for ReLU activation functions
-        //return MAX2(0.0)
+        //return MAX2(0.0, x)
     }
 
     double feedForward(const double& input){
