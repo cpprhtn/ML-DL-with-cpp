@@ -12,10 +12,10 @@ public:
         : w_(w_input), b_(b_input)
     {}
 
-public: //attributes 
+public: //attributes
     double w_; //weight
     double b_; //bias
-    
+
     double input_, output_; //saved for backpropagation
 
 
@@ -70,6 +70,5 @@ int main(){
         std::cout << "w_ " << my_neuron.w_ << std::endl;
         std::cout << "b_ " << my_neuron.b_ << std::endl;
     }
-    
-    
+
 }
