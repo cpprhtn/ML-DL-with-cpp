@@ -183,3 +183,11 @@ public:
         }
     }
 };
+
+template<class TT> 
+std::ostream& operator<<(std::ostream& output, const VectorT<TT>& v)
+{
+	for(int i=0; i<v.num_dimension_; i++) output<<v.values_[i]<<" ";
+    output << std::flush;
+	return output;
+}
