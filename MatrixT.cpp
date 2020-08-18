@@ -4,8 +4,8 @@
 template<class T>
 void MatrixT<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
 {
-    assert(num_rows_ <= result.num_dimension_);
-    assert(num_cols_ <= vector.num_dimension_);
+    assert(num_rows_ <= result.num_dimension);
+    assert(num_cols_ <= vector.num_dimension);
 
     for (int row = 0; row < num_rows_; row++)
     {
@@ -20,6 +20,23 @@ void MatrixT<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
             temp *= vector.values_[col];
 
             result.values_[row] += temp;
+        }
+    }
+}
+
+template<class T>
+void MatrixT<T>::multiplyTransposed(const VectorT<T>& vector, VectorT<T>& result) const 
+{
+    assert(num_rows_ <= vector.num_dimension);
+    assert(num_cols_ <= result.num_dimension);
+
+    for (int col = 0; col < num_cols_; col++)
+    {
+        result.values_[col] = (T)0;
+
+        for (int row = 0, ix = col; row < num_rows_; row++, ix += num_cols_)
+        {
+            result.values_[col] += values_[ix] * vector.values_[row];
         }
     }
 }

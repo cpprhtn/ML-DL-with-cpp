@@ -6,8 +6,8 @@ template<class T>
 class MatrixT
 {
 public:
-    int num_rows_;  // m_
-    int num_cols_;  // n_
+    int num_rows_;  //m_
+    int num_cols_;  //n_
     T   *values_;
 
     MatrixT()
