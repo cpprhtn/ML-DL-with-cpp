@@ -22,8 +22,12 @@ void MatrixT<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
             result.values_[row] += temp;
         }
     }
-}
+}   //matrix matrix multiply dot product
 
+
+//TODO
+//Turn the row, col and multiply.
+//When the matrix size gets bigger, Transposed first is faster
 template<class T>
 void MatrixT<T>::multiplyTransposed(const VectorT<T>& vector, VectorT<T>& result) const 
 {

@@ -23,4 +23,4 @@ public:
 	T&  getValue(const int& row, const int& column) const;
 
 	void cout();
-};
+};  //Makes 1D arrays into 2D arrays when indexing
