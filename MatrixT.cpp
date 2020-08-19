@@ -1,6 +1,34 @@
 #include <assert.h>
 #include "MatrixT.h"
 
+#define SAFE_DELETE_ARRAY(pointer) if(pointer != nullptr){delete [] pointer; pointer=nullptr;}
+//TODO
+//Checking matrix size (using assert?) -----> Clear
+template<class T>
+void MatrixT<T>::initialize(const int& _m, const int& _n, const bool init = true)
+{
+	const int num_all_old = num_rows_ * num_cols_;
+
+	num_rows_ = _m;
+	num_cols_ = _n;
+
+	SAFE_DELETE_ARRAY(values_);
+
+	const int num_all = num_rows_ * num_cols_;
+
+	if (num_all_old != num_all) // allocate memory if num_all is changed
+	{
+		// check if the matrix is too large
+		assert((double)num_rows_ * (double)num_cols_ <= (double)INT_MAX);
+
+		values_ = new T[num_all];
+
+		if (init == true)
+			for (int i = 0; i < num_all; i++)
+				values_[i] = (T)0;
+	}
+}
+
 template<class T>
 void MatrixT<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
 {
@@ -26,7 +54,7 @@ void MatrixT<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
 
 
 //TODO
-//Turn the row, col and multiply.
+//Turn the row, col and multiply.  -------> Clear
 //When the matrix size gets bigger, Transposed first is faster
 template<class T>
 void MatrixT<T>::multiplyTransposed(const VectorT<T>& vector, VectorT<T>& result) const 
