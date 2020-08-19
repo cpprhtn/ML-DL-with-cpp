@@ -66,3 +66,12 @@ int MatrixT<T>::get1DIndex(const int& row, const int& column) const
 	//column = i, row = j
 	return column + row * num_cols_;    //data structure is for faster dot product of a row vector and VectorT input.
 }
+
+template<class T>
+T& MatrixT<T>::getValue(const int& row, const int& column) const
+{
+	return values_[get1DIndex(row, column)];
+}
+
+template class MatrixT<float>;
+template class MatrixT<double>;
