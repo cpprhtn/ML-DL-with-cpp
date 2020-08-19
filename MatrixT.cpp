@@ -40,3 +40,17 @@ void MatrixT<T>::multiplyTransposed(const VectorT<T>& vector, VectorT<T>& result
         }
     }
 }
+
+template<class T>
+void MatrixT<T>::cout()
+{
+	for (int row = 0; row < num_rows_; row++)
+	{
+		for (int col = 0; col < num_cols_; col++)
+		{
+			std::cout << getValue(row, col) << " ";
+		}
+
+		std::cout << std::endl;
+	}
+}
