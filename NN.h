@@ -11,7 +11,7 @@
 //typedef double D;
 typedef float D;
 
-class NeuralNetwork
+class NN
 {
 public:
     int num_input_;
@@ -27,8 +27,8 @@ public:
 
     VectorT<unsigned>    num_layer_acts_;        
 
-	NeuralNetwork();
-	NeuralNetwork(const int& _num_input, const int& _num_output, const int& _num_hidden_layers);
+	NN();
+	NN(const int& _num_input, const int& _num_output, const int& _num_hidden_layers);
 
 	void initialize(const int& _num_input, const int& _num_output, const int& _num_hidden_layers);
 	void initialize(const VectorT<unsigned>& num_layer_acts_, const int& _num_hidden_layers);

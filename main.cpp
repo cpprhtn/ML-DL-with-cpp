@@ -1,5 +1,5 @@
 #include <iostream>
-#include "NeuralNetwork.h"
+#include "NN.h"
 
 int main()
 {
@@ -11,7 +11,7 @@ int main()
 
 	VectorT<D> y_temp(2);
 
-	NeuralNetwork nn_;
+	NN nn_;
 	nn_.initialize(2, 1, 1);
 	nn_.alpha_ = 0.1;
 
