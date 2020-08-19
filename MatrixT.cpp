@@ -54,3 +54,15 @@ void MatrixT<T>::cout()
 		std::cout << std::endl;
 	}
 }
+
+template<class T>
+int MatrixT<T>::get1DIndex(const int& row, const int& column) const
+{
+	assert(row >= 0);
+	assert(column >= 0);
+	assert(row < num_rows_);
+	assert(column < num_cols_);
+
+	//column = i, row = j
+	return column + row * num_cols_;    //data structure is for faster dot product of a row vector and VectorT input.
+}
