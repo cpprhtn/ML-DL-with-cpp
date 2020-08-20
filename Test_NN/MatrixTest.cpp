@@ -1,11 +1,13 @@
 #include <assert.h>
-#include "MatrixT.h"
+#include "MatrixTest.h"
 
 #define SAFE_DELETE_ARRAY(pointer) if(pointer != nullptr){delete [] pointer; pointer=nullptr;}
+
 //TODO
 //Checking matrix size (using assert?) -----> Clear
+
 template<class T>
-void MatrixT<T>::initialize(const int& _m, const int& _n, const bool init = true)
+void MatrixTest<T>::initialize(const int& _m, const int& _n, const bool init = true)
 {
 	const int num_all_old = num_rows_ * num_cols_;
 
@@ -16,9 +18,9 @@ void MatrixT<T>::initialize(const int& _m, const int& _n, const bool init = true
 
 	const int num_all = num_rows_ * num_cols_;
 
-	if (num_all_old != num_all) // allocate memory if num_all is changed
+	if (num_all_old != num_all) //allocate memory if num_all is changed
 	{
-		// check if the matrix is too large
+		//check if the matrix is too large
 		assert((double)num_rows_ * (double)num_cols_ <= (double)INT_MAX);
 
 		values_ = new T[num_all];
@@ -30,10 +32,10 @@ void MatrixT<T>::initialize(const int& _m, const int& _n, const bool init = true
 }
 
 template<class T>
-void MatrixT<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
+void MatrixTest<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
 {
-    assert(num_rows_ <= result.num_dimension);
-    assert(num_cols_ <= vector.num_dimension);
+    assert(num_rows_ <= result.num_dimension_);
+    assert(num_cols_ <= vector.num_dimension_);
 
     for (int row = 0; row < num_rows_; row++)
     {
@@ -50,17 +52,19 @@ void MatrixT<T>::multiply(const VectorT<T>& vector, VectorT<T>& result) const
             result.values_[row] += temp;
         }
     }
-}   //matrix matrix multiply dot product
+} //matrix matrix multiply dot product
+
 
 
 //TODO
 //Turn the row, col and multiply.  -------> Clear
 //When the matrix size gets bigger, Transposed first is faster
+
 template<class T>
-void MatrixT<T>::multiplyTransposed(const VectorT<T>& vector, VectorT<T>& result) const 
+void MatrixTest<T>::multiplyTransposed(const VectorT<T>& vector, VectorT<T>& result) const
 {
-    assert(num_rows_ <= vector.num_dimension);
-    assert(num_cols_ <= result.num_dimension);
+    assert(num_rows_ <= vector.num_dimension_);
+    assert(num_cols_ <= result.num_dimension_);
 
     for (int col = 0; col < num_cols_; col++)
     {
@@ -71,10 +75,11 @@ void MatrixT<T>::multiplyTransposed(const VectorT<T>& vector, VectorT<T>& result
             result.values_[col] += values_[ix] * vector.values_[row];
         }
     }
+
 }
 
 template<class T>
-void MatrixT<T>::cout()
+void MatrixTest<T>::cout()
 {
 	for (int row = 0; row < num_rows_; row++)
 	{
@@ -88,7 +93,7 @@ void MatrixT<T>::cout()
 }
 
 template<class T>
-int MatrixT<T>::get1DIndex(const int& row, const int& column) const
+int MatrixTest<T>::get1DIndex(const int& row, const int& column) const
 {
 	assert(row >= 0);
 	assert(column >= 0);
@@ -96,14 +101,14 @@ int MatrixT<T>::get1DIndex(const int& row, const int& column) const
 	assert(column < num_cols_);
 
 	//column = i, row = j
-	return column + row * num_cols_;    //data structure is for faster dot product of a row vector and VectorT input.
+	return column + row * num_cols_;        //data structure is for faster dot product of a row vector and Vector input.
 }
 
 template<class T>
-T& MatrixT<T>::getValue(const int& row, const int& column) const
+T& MatrixTest<T>::getValue(const int& row, const int& column) const
 {
 	return values_[get1DIndex(row, column)];
 }
 
-template class MatrixT<float>;
-template class MatrixT<double>;
+template class MatrixTest<float>;
+template class MatrixTest<double>;

@@ -5,7 +5,6 @@
 #include <iostream>
 
 #define SAFE_DELETE_ARRAY(pointer) if(pointer != nullptr){delete [] pointer; pointer=nullptr;}
-#define SWAP(a,b,type)   {type _temp_ = a; a = b; b = _temp_;}
 
 template<class TT>
 class Arr1D
@@ -24,7 +23,7 @@ public:
 	{
 		initialize(num_elements_input);
 	}
-	
+
 	Arr1D(const int& num_elements_input, const TT& values_input)
 		: num_elements_(0), values_(nullptr)
 	{
@@ -36,14 +35,14 @@ public:
 	{
 		initialize(array_input);
 	}
-	
+
 	~Arr1D()
 	{
 		SAFE_DELETE_ARRAY(values_);
 
 		num_elements_ = 0;
 	}
-	
+
 	void initialize(const int& num_elements_input)
 	{
 		num_elements_ = num_elements_input;
@@ -53,7 +52,7 @@ public:
 		if (num_elements_ > 0)
 			values_ = new TT[num_elements_];
 	}
-	
+
 	void initialize(const int& num_elements_input, const TT& values_input)
 	{
 		num_elements_ = num_elements_input;
@@ -67,24 +66,24 @@ public:
 			assignAllValues(values_input);
 		}
 	}
-	
+
 	void initialize(const Arr1D<TT>& array_input)
 	{
 		initialize(array_input.num_elements_);
 
 		copyFrom(array_input);
 	}
-	
+
 	void assignAllValues(const TT& constant)
 	{
 		for (int w = 0; w < num_elements_; w++) values_[w] = constant;
 	}
-	
+
 	void assignValues(const int& start_ix, const int& end_ix, const TT& constant)
 	{
 		for (int w = start_ix; w <= end_ix; w++) values_[w] = constant;
 	}
-	
+
 	void assignMin(const int& ix, const TT& value)
 	{
 		TT &temp = *(values_ + ix);
@@ -122,7 +121,7 @@ public:
 
 		SAFE_DELETE_ARRAY(values_);
 	}
-	
+
 	TT& operator [] (const int& i) const
 	{
 		assert(i >= 0);
@@ -138,17 +137,17 @@ public:
 
 		return values_[i];
 	}
-	
+
 	const int getSizeOfData() const
 	{
 		return num_elements_*sizeof(TT);
 	}
-	
+
 	const int getSizeOfType() const
 	{
 		return sizeof(TT);
 	}
-	
+
 	void compactArray(Arr1D<int>& flag_array, const int remove_flag)
 	{
 		//count num of valid elements
@@ -184,9 +183,9 @@ public:
 
 		dest.initialize(end - start + 1);
 
-		
+
 		for (int ix = 0, i = start; i <= end; i++, ix++) {
-			
+
 			dest.values_[ix] = values_[i];
 
 		}
@@ -207,7 +206,7 @@ public:
 
 	int searchIncremental(const TT& v)
 	{
-		//perform domain search when values are sorted incrementally 
+		//perform domain search when values are sorted incrementally
 
 		for (int i = 0; i < num_elements_; i++)
 		{
@@ -270,4 +269,5 @@ public:
 	{
 		for (int w = 0; w < num_elements_; w++) values_[w] -= constant;
 	}
+
 };

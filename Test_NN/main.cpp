@@ -1,7 +1,8 @@
 #include <iostream>
+
 #include "NN.h"
 
-int main()
+void main()
 {
 	VectorT<D> x(2);
 	x[0] = 0.0; x[1] = 0.0;
@@ -11,7 +12,7 @@ int main()
 
 	VectorT<D> y_temp(2);
 
-	NN nn_;
+	NeuralNetwork nn_;
 	nn_.initialize(2, 1, 1);
 	nn_.alpha_ = 0.1;
 
@@ -25,5 +26,4 @@ int main()
 
 		nn_.propBackward(y_target);
 	}
-
 }

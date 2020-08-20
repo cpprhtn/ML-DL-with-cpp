@@ -1,16 +1,16 @@
 #pragma once
 
-#include "VectorT.h"
+#include "VectorTest.h"
 
 template<class T>
-class MatrixT
+class MatrixTest
 {
 public:
     int num_rows_;  //m_
     int num_cols_;  //n_
     T   *values_;
 
-    MatrixT()
+    MatrixTest()
         : values_(nullptr), num_rows_(0), num_cols_(0)
     {}
 
