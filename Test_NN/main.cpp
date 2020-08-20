@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "NN.h"
 
 void main()
