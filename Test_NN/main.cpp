@@ -12,7 +12,7 @@ void main()
 	VectorT<D> y_temp(2);
 
 	NeuralNetwork nn_;
-	nn_.initialize(2, 1, 1);
+	nn_.initialize(2, 1, 1); // (input, output, layer)
 	nn_.alpha_ = 0.1;
 
 	for (int i = 0; i < 100; i++)
@@ -24,5 +24,8 @@ void main()
 		std::cout << y_temp << std::endl;
 
 		nn_.propBackward(y_target);
+
+		//Initialize to random number at first.
 	}
+	
 }
