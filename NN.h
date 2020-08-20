@@ -8,8 +8,8 @@
 
 #define MAX2(a, b)		((a) > (b) ? (a) : (b))	//for ReLU
 
-//typedef double D;
-typedef float D;
+typedef double D;
+//typedef float D;
 
 class NN
 {
