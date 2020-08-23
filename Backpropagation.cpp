@@ -29,7 +29,7 @@ public: //behaviors
         return output_;
     }
 
-    double PropBackward(const double& target){
+    void PropBackward(const double& target){
         const double alpha = 0.1; //learning rate
 
         const double grad = (output_ - target) * getActGrad(output_);
