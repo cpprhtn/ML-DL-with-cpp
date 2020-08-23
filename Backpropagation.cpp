@@ -64,7 +64,7 @@ int main(){
 
     for(int r = 0; r < 100; r++){
 
-        std::cout << "Training" << r << std::endl;
+        std::cout << "Training " << r << std::endl;
         my_neuron.feedForwardAndPrint(1.0);
         my_neuron.PropBackward(4.0);
         std::cout << "w_ " << my_neuron.w_ << std::endl;
