@@ -4,7 +4,7 @@
 
 class Neuron{
 public:
-    double w_; //weight
+    double W_; //weight
     double b_; //bias
 
     double getAct(const double& x){
@@ -17,10 +17,10 @@ public:
 
     double feedForward(const double& input){
         //output y = f(\sigma)
-        //\sigma = w_ * input x + b
+        //\sigma = W_ * input x + b
         //for multiple inputs,
         //\sigma = w0_ * x0_ + w1_ * x1_ ... + b
-        const double sigma = w_ * input + b_;
+        const double sigma = W_ * input + b_;
 
         return getAct(sigma);
     }
@@ -29,7 +29,7 @@ public:
 int main(){
 
     Neuron my_neuron;
-    my_neuron.w_ = 2.0;
+    my_neuron.W_ = 2.0;
     my_neuron.b_ = 1.0;
 
     std::cout << "Input: 1.0, " << "Output:" << my_neuron.feedForward(1.0) << std::endl;

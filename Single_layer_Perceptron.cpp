@@ -1,8 +1,9 @@
+#include <iostream>
 #include <cmath>
 #include <map>
 #include <random>
 #include <vector>
-#include <iostream>
+
 double Sigmoid(double x)
 {
     return 1 / (1 + std::exp(-x));
@@ -13,60 +14,60 @@ class Neuron
 public:
     Neuron(std::size_t input_size)
     {
-        Weights_.resize(input_size);
+        W_.resize(input_size);
         Reset();
     }
 
 public:
     double Compute(const std::vector<double>& x) const
     {
-        if (x.size() != Weights_.size())
-            throw "x.size() != Weights_.size()";
+        if (x.size() != W_.size())
+            throw "x.size() != W_.size()";
 
         double wx = 0.0;
-        for (std::size_t i = 0; i < Weights_.size(); ++i)
+        for (std::size_t i = 0; i < W_.size(); ++i)
         {
-            wx += Weights_[i] * x[i];
+            wx += W_[i] * x[i];
         }
 
-        return Sigmoid(wx + Bias_);
+        return Sigmoid(wx + b_);
     }
-    void Train(double a, const std::vector<std::pair<std::vector<double>, double>>& train_data)
+    void Train(double a, const std::vector<std::pair<std::vector<double>, double>>& t_data)
     {
-        std::size_t input_size = train_data[0].first.size();
-        if (input_size != Weights_.size())
-            throw "input_size != Weights_.size()";
+        std::size_t input_size = t_data[0].first.size();
+        if (input_size != W_.size())
+            throw "input_size != W_.size()";
 
-        for (std::size_t i = 0; i < train_data.size(); ++i)
+        for (std::size_t i = 0; i < t_data.size(); ++i)
         {
-            double o = Compute(train_data[i].first);
-            double t = train_data[i].second;
+            double o = Compute(t_data[i].first);
+            double t = t_data[i].second;
 
             for (std::size_t j = 0; j < input_size; ++j)
             {
-                Weights_[j] += a * (t - o) * train_data[i].first[j];
+                W_[j] += a * (t - o) * t_data[i].first[j];
             }
-            Bias_ += a * (t - o);
+            b_ += a * (t - o);
         }
     }
 
 private:
     void Reset()
     {
-        Bias_ = -1;
+        b_ = -1;
 
         std::mt19937 random((std::random_device()()));
         std::uniform_real_distribution<double> dist(-1, 1);
 
-        for (std::size_t i = 0; i < Weights_.size(); ++i)
+        for (std::size_t i = 0; i < W_.size(); ++i)
         {
-            Weights_[i] = dist(random);
+            W_[i] = dist(random);
         }
     }
 
 private:
-    std::vector<double> Weights_;
-    double Bias_;
+    std::vector<double> W_;
+    double b_;
 };
 
 int main()
@@ -84,10 +85,14 @@ int main()
 		});
 	}
 
-	std::cout << "0 and 0 = " << and_neuron.Compute({ 0, 0 }) << '\n';
-	std::cout << "1 and 0 = " << and_neuron.Compute({ 1, 0 }) << '\n';
-	std::cout << "0 and 1 = " << and_neuron.Compute({ 0, 1 }) << '\n';
-	std::cout << "1 and 1 = " << and_neuron.Compute({ 1, 1 }) << '\n';
+    std::cout << "And Operator" << std::endl;
+	std::cout << "0 and 0 = " << and_neuron.Compute({ 0, 0 }) << std::endl;
+	std::cout << "1 and 0 = " << and_neuron.Compute({ 1, 0 }) << std::endl;
+	std::cout << "0 and 1 = " << and_neuron.Compute({ 0, 1 }) << std::endl;
+	std::cout << "1 and 1 = " << and_neuron.Compute({ 1, 1 }) << std::endl;
+    std::cout << std::endl;
+
+
 
 	Neuron or_neuron(2);
 
@@ -102,10 +107,11 @@ int main()
 		});
 	}
 
-	std::cout << "0 or 0 = " << or_neuron.Compute({ 0, 0 }) << '\n';
-	std::cout << "1 or 0 = " << or_neuron.Compute({ 1, 0 }) << '\n';
-	std::cout << "0 or 1 = " << or_neuron.Compute({ 0, 1 }) << '\n';
-	std::cout << "1 or 1 = " << or_neuron.Compute({ 1, 1 }) << '\n';
+    std::cout << "Or Operator" << std::endl;
+	std::cout << "0 or 0 = " << or_neuron.Compute({ 0, 0 }) << std::endl;
+	std::cout << "1 or 0 = " << or_neuron.Compute({ 1, 0 }) << std::endl;
+	std::cout << "0 or 1 = " << or_neuron.Compute({ 0, 1 }) << std::endl;
+	std::cout << "1 or 1 = " << or_neuron.Compute({ 1, 1 }) << std::endl;
 
 	return 0;
 }

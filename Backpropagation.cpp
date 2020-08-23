@@ -5,15 +5,15 @@
 class Neuron{
 public:
     Neuron()
-        : w_(2.0), b_(1.0)
+        : W_(2.0), b_(1.0)
     {}
 
-    Neuron(const double& w_input, const double& b_input)
-        : w_(w_input), b_(b_input)
+    Neuron(const double& W_input, const double& b_input)
+        : W_(W_input), b_(b_input)
     {}
 
 public: //attributes
-    double w_; //weight
+    double W_; //weight
     double b_; //bias
 
     double input_, output_; //saved for backpropagation
@@ -23,7 +23,7 @@ public: //behaviors
     double feedForward(const double& _input){
         input_ = _input;
 
-        const double sigma = w_ * input_ + b_;
+        const double sigma = W_ * input_ + b_;
 
         output_ = getAct(sigma);
         return output_;
@@ -34,7 +34,7 @@ public: //behaviors
 
         const double grad = (output_ - target) * getActGrad(output_);
 
-        w_ -= alpha * grad * input_; //last input_ came from d(wx + b)/dw = x
+        W_ -= alpha * grad * input_; //last input_ came from d(wx + b)/dw = x
         b_ -= alpha * grad * 1.0;    //last 1.0 came from d(wx + b)/db = 1
     }
 
@@ -67,7 +67,7 @@ int main(){
         std::cout << "Training " << r << std::endl;
         my_neuron.feedForwardAndPrint(1.0);
         my_neuron.PropBackward(4.0);
-        std::cout << "w_ " << my_neuron.w_ << std::endl;
+        std::cout << "W_ " << my_neuron.W_ << std::endl;
         std::cout << "b_ " << my_neuron.b_ << std::endl;
     }
 
