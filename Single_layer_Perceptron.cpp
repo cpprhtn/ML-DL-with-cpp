@@ -24,13 +24,13 @@ public:
         if (x.size() != W_.size())
             throw "x.size() != W_.size()";
 
-        double wx = 0.0;
+        double Wx = 0.0;
         for (std::size_t i = 0; i < W_.size(); ++i)
         {
-            wx += W_[i] * x[i];
+            Wx += W_[i] * x[i];
         }
 
-        return Sigmoid(wx + b_);
+        return Sigmoid(Wx + b_);
     }
     void Train(double a, const std::vector<std::pair<std::vector<double>, double>>& t_data)
     {
