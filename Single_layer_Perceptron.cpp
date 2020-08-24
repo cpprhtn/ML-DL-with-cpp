@@ -85,7 +85,7 @@ int main()
 		});
 	}
 
-    std::cout << "And Operator" << std::endl;
+    std::cout << "AND Operator" << std::endl;
 	std::cout << "0 and 0 = " << and_neuron.Calc({ 0, 0 }) << std::endl;
 	std::cout << "1 and 0 = " << and_neuron.Calc({ 1, 0 }) << std::endl;
 	std::cout << "0 and 1 = " << and_neuron.Calc({ 0, 1 }) << std::endl;
@@ -107,7 +107,7 @@ int main()
 		});
 	}
 
-    std::cout << "Or Operator" << std::endl;
+    std::cout << "OR Operator" << std::endl;
 	std::cout << "0 or 0 = " << or_neuron.Calc({ 0, 0 }) << std::endl;
 	std::cout << "1 or 0 = " << or_neuron.Calc({ 1, 0 }) << std::endl;
 	std::cout << "0 or 1 = " << or_neuron.Calc({ 0, 1 }) << std::endl;
