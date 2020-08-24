@@ -7,7 +7,7 @@ double Sigmoid(double x)
 {
     return 1 / (1 + std::exp(-x));
 }
-double Sigmoid_Differential(double x)
+double D_Sigmoid(double x)
 {
     double y = Sigmoid(x);
     return y * (1 - y);
@@ -51,11 +51,14 @@ public:
 
             for (std::size_t j = 0; j < input_size; ++j)
             {
-                W_[j] += a * Sigmoid_Differential(LastV_) * (t - o) * t_data[i].first[j];
+                W_[j] += a * D_Sigmoid
+            (LastV_) * (t - o) * t_data[i].first[j];
             }
-            b_ += a * Sigmoid_Differential(LastV_) * (t - o);
+            b_ += a * D_Sigmoid
+        (LastV_) * (t - o);
 
-            LastD_ = Sigmoid_Differential(LastV_) * (t - o);
+            LastD_ = D_Sigmoid
+        (LastV_) * (t - o);
         }
     }
     void Train(double a, double e, const std::vector<double>& t_data)
@@ -66,11 +69,14 @@ public:
 
         for (std::size_t j = 0; j < input_size; ++j)
         {
-            W_[j] += a * Sigmoid_Differential(LastV_) * e * t_data[j];
+            W_[j] += a * D_Sigmoid
+        (LastV_) * e * t_data[j];
         }
-        b_ += a * Sigmoid_Differential(LastV_) * e;
+        b_ += a * D_Sigmoid
+    (LastV_) * e;
 
-        LastD_ = Sigmoid_Differential(LastV_) * e;
+        LastD_ = D_Sigmoid
+    (LastV_) * e;
     }
     std::size_t InputSize() const
     {
@@ -118,3 +124,4 @@ private:
     double LastD_;
     mutable std::vector<double> LastX_;
 };
+
