@@ -166,7 +166,7 @@ public:
     {
         for (std::size_t i = 0; i < t_data.size(); ++i)
         {
-            // 출력 레이어 학습
+            //Train Output layers
             std::vector<double> o = Calc(t_data[i].first);
             std::vector<double> e;
 
