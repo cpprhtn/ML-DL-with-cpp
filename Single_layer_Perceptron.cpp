@@ -19,7 +19,7 @@ public:
     }
 
 public:
-    double Compute(const std::vector<double>& x) const
+    double Calc(const std::vector<double>& x) const
     {
         if (x.size() != W_.size())
             throw "x.size() != W_.size()";
@@ -40,7 +40,7 @@ public:
 
         for (std::size_t i = 0; i < t_data.size(); ++i)
         {
-            double o = Compute(t_data[i].first);
+            double o = Calc(t_data[i].first);
             double t = t_data[i].second;
 
             for (std::size_t j = 0; j < input_size; ++j)
@@ -86,10 +86,10 @@ int main()
 	}
 
     std::cout << "And Operator" << std::endl;
-	std::cout << "0 and 0 = " << and_neuron.Compute({ 0, 0 }) << std::endl;
-	std::cout << "1 and 0 = " << and_neuron.Compute({ 1, 0 }) << std::endl;
-	std::cout << "0 and 1 = " << and_neuron.Compute({ 0, 1 }) << std::endl;
-	std::cout << "1 and 1 = " << and_neuron.Compute({ 1, 1 }) << std::endl;
+	std::cout << "0 and 0 = " << and_neuron.Calc({ 0, 0 }) << std::endl;
+	std::cout << "1 and 0 = " << and_neuron.Calc({ 1, 0 }) << std::endl;
+	std::cout << "0 and 1 = " << and_neuron.Calc({ 0, 1 }) << std::endl;
+	std::cout << "1 and 1 = " << and_neuron.Calc({ 1, 1 }) << std::endl;
     std::cout << std::endl;
 
 
@@ -108,10 +108,10 @@ int main()
 	}
 
     std::cout << "Or Operator" << std::endl;
-	std::cout << "0 or 0 = " << or_neuron.Compute({ 0, 0 }) << std::endl;
-	std::cout << "1 or 0 = " << or_neuron.Compute({ 1, 0 }) << std::endl;
-	std::cout << "0 or 1 = " << or_neuron.Compute({ 0, 1 }) << std::endl;
-	std::cout << "1 or 1 = " << or_neuron.Compute({ 1, 1 }) << std::endl;
+	std::cout << "0 or 0 = " << or_neuron.Calc({ 0, 0 }) << std::endl;
+	std::cout << "1 or 0 = " << or_neuron.Calc({ 1, 0 }) << std::endl;
+	std::cout << "0 or 1 = " << or_neuron.Calc({ 0, 1 }) << std::endl;
+	std::cout << "1 or 1 = " << or_neuron.Calc({ 1, 1 }) << std::endl;
 
 	return 0;
 }

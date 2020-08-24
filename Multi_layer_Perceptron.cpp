@@ -7,51 +7,94 @@ double Sigmoid(double x)
 {
     return 1 / (1 + std::exp(-x));
 }
+double Sigmoid_Differential(double x)
+{
+    double y = Sigmoid(x);
+    return y * (1 - y);
+}
 
 class Neuron
 {
 public:
-    Neuron(std::size_t input size)
+    Neuron(std::size_t input_size)
     {
         W_.resize(input_size);
         Reset();
     }
 
-    double Compute(const std::vector<double>& x) const //입력시 출력형태로
+public:
+    double Calc(const std::vector<double>& x) const
     {
-        if (x.size() != W_.size()) // 예외처리
+        if (x.size() != W_.size())
             throw "x.size() != W_.size()";
 
-
         double Wx = 0.0;
-        for (std::size_t i = 0; i < W_.size(); i++)
+        for (std::size_t i = 0; i < W_.size(); ++i)
         {
-             Wx += W_[i] * x[i];
+            Wx += W_[i] * x[i];
         }
 
-        return Sigmoid(Wx + b_); //h(x) 구현
+        LastV_ = Wx + b_;
+        LastX_ = x;
+        return Sigmoid(LastV_);
     }
-    //a (W, b 다 적용한.)
-    void Train(double a, const::vector<std::pair<std::vector<double>, double>>& t_data)
+    void Train(double a, const std::vector<std::pair<std::vector<double>, double>>& t_data)
     {
-         std::size_t input_size = t_data[o].first.size();
+        std::size_t input_size = t_data[0].first.size();
+        if (input_size != W_.size())
+            throw "input_size != W_.size()";
 
-        if(input_size != W_.size())
-            throw "input_size.size() != W_.size()";
-
-        for(std::size_t i = 0; i < t_data.size(); ++i)
+        for (std::size_t i = 0; i < t_data.size(); ++i)
         {
-            double o = Compute(t_data[i].first);
+            double o = Calc(t_data[i].first);
             double t = t_data[i].second;
 
-
-            for(std::size_t j = 0; j < input_size; ++j)
+            for (std::size_t j = 0; j < input_size; ++j)
             {
-                W_[j] += a * (t - o) * t_data[i].first[j];
+                W_[j] += a * Sigmoid_Differential(LastV_) * (t - o) * t_data[i].first[j];
             }
+            b_ += a * Sigmoid_Differential(LastV_) * (t - o);
 
-        b_ += a * (t - o)
+            LastD_ = Sigmoid_Differential(LastV_) * (t - o);
         }
+    }
+    void Train(double a, double e, const std::vector<double>& t_data)
+    {
+        std::size_t input_size = t_data.size();
+        if (input_size != W_.size())
+            throw "input_size != W_.size()";
+
+        for (std::size_t j = 0; j < input_size; ++j)
+        {
+            W_[j] += a * Sigmoid_Differential(LastV_) * e * t_data[j];
+        }
+        b_ += a * Sigmoid_Differential(LastV_) * e;
+
+        LastD_ = Sigmoid_Differential(LastV_) * e;
+    }
+    std::size_t InputSize() const
+    {
+        return W_.size();
+    }
+    double LastV() const
+    {
+        return LastV_;
+    }
+    double LastD() const
+    {
+        return LastD_;
+    }
+    std::vector<double>& Weights()
+    {
+        return W_;
+    }
+    double& Bias()
+    {
+        return b_;
+    }
+    const std::vector<double>& LastX() const
+    {
+        return LastX_;
     }
 
 private:
@@ -71,40 +114,7 @@ private:
 private:
     std::vector<double> W_;
     double b_;
+    mutable double LastV_;
+    double LastD_;
+    mutable std::vector<double> LastX_;
 };
-
-//Network 구현
-
-class Network
-{
-public:
-    Network(const std::vector<std::size_t>& layers)
-    {
-        for (std::size_t i = 1; i < layers.size(); ++i)
-        {
-            std::vector<Neuron> layer;
-            for (std::size_t j = 0; j <layers[i]; j++)
-            {
-                layer.push_back(Neuron(layers[i - 1]));
-            }
-            Layers_.push_back(layer);
-        }
-    }
-
-public:
-    std::vector<double> Compute(const std::vector<double>& x)
-    {
-        if (x.size() != Layers_[0][0].Inputsize())
-            throw "x.size() != Layers_[0][0].Inputsize()"
-
-        std::vector<double> result;
-        std::vector<double> x_next_layer = x;
-
-    
-    }
-
-private:
-    std::vector<std::vector<Neuron>> Layers_;
-};
-
-//Network net({a,b,c,d});
