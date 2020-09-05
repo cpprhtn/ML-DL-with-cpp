@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <cmath>
-
+#include <sstream>
 
 NaiveBayesClassifier::NaiveBayesClassifier() {
 
@@ -24,6 +24,9 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 		exit(0);
 	}
 
+	vector<pair<pair<ll, ll>, pair<ll, ll>>> words_freq;
+
+	
 	string line;
 	ll pos_wobin_freq = 0, neg_wobin_freq = 0, pos_wbin_freq = 0, neg_wbin_freq = 0; // total word frequencies
 }
