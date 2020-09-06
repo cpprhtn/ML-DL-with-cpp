@@ -1,24 +1,28 @@
+#include <sstream>
 #include <algorithm>
 #include <cmath>
-#include <sstream>
+#include <iomanip>
+#include <utility>
+
+#include "naive_bayes.h"
 
 NaiveBayesClassifier::NaiveBayesClassifier() {
 
 }
 
 NaiveBayesClassifier::NaiveBayesClassifier(
-	int neg_max, int pos_min, const string& train_bow_file,
-	const string& vocab_file, const string& sw_file = "") {
+	int Max_n, int Min_p, const string& train_data,
+	const string& voca_data, const string& sw_data = "") {
 
 	// setting
-	pos_reviews = 0;
-	neg_reviews = 0;
-	this -> neg_max = neg_max;
-	this -> pos_min = pos_min;
-	omit_sw = false;
+	reviews_p = 0;
+	reviews_n = 0;
+	this -> Max_n = Max_n;
+	this -> Min_p = Min_p;
+	sw_drop = false;
 
 	// populate words_freq
-	ifstream in(train_bow_file);
+	ifstream in(train_data);
 	if (!in.is_open()) {
 		cerr << "File opening failed\n";
 		exit(0);
