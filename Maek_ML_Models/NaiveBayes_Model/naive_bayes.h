@@ -15,16 +15,27 @@ using namespace std;
 
 class NaiveBayesClassifier {
 public:
-	// Default constructor
 	NaiveBayesClassifier();
 
 	NaiveBayesClassifier(
-		int neg_max, int pos_min, const string& train_bow_file,
-		const string& vocab_file, const string& sw_file);
+		int Max_n, int Min_p, const string& train_data,
+		const string& voca_data, const string& sw_data);
+	void test(const string& test_data, bool using_2);
+	vector<string> mostInformative(ll num, bool using_2);
 
-	void test(const string& test_bow_file, bool use_bin);
+private:
 
-	
-	vector<string> mostInformative(ll num, bool use_bin);
+	vector<string> readWords(const string& sw_data);
+	bool classify(stringstream& review_instance, bool using_2);
+	vector<pair<pair<ld, ld>, pair<ld, ld>>> prob_word;
+	vector<string> stop_words;
+	vector<string> voca_word;
+
+	ll reviews_p;
+	ll reviews_n;
+	int Max_n;
+	int Min_p;
+	bool sw_drop;
+};
 
 #endif
