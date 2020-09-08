@@ -27,18 +27,18 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 	voca_word = readWords(voca_data);
 	ll voca_size = voca_word.size();
 	
-	vector<pair<pair<ll, ll>, pair<ll, ll>>> words_freq;
+	vector<pair<pair<ll, ll>, pair<ll, ll>>> freq_word;
 
-	//setup words_freq, words_prob
-	words_freq.resize(voca_size);
-	words_prob.resize(voca_size);
-	for (auto& word_info: words_freq) {
+	//setup freq_word, prob_word
+	freq_word.resize(voca_size);
+	prob_word.resize(voca_size);
+	for (auto& word_info: freq_word) {
 		word_info.first.first = 0;
 		word_info.first.second = 0;
 		word_info.second.first = 0;
 		word_info.second.second = 0;
 	}
-	// populate words_freq
+	// populate freq_word
 	ifstream in(train_data);
 	if (!in.is_open()) {
 		cerr << "File opening failed\n";
