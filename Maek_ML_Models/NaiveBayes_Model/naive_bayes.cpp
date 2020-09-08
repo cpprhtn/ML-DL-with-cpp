@@ -20,16 +20,30 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 	this -> Max_n = Max_n;
 	this -> Min_p = Min_p;
 	sw_drop = false;
+	if (sw_data != "") {
+		stop_words = readWords(sw_data);
+		sw_drop = true;
+	}
+	voca_word = readWords(voca_data);
+	ll voca_size = voca_word.size();
+	
+	vector<pair<pair<ll, ll>, pair<ll, ll>>> words_freq;
 
+	//setup words_freq, words_prob
+	words_freq.resize(voca_size);
+	words_prob.resize(voca_size);
+	for (auto& word_info: words_freq) {
+		word_info.first.first = 0;
+		word_info.first.second = 0;
+		word_info.second.first = 0;
+		word_info.second.second = 0;
+	}
 	// populate words_freq
 	ifstream in(train_data);
 	if (!in.is_open()) {
 		cerr << "File opening failed\n";
 		exit(0);
 	}
-
-	vector<pair<pair<ll, ll>, pair<ll, ll>>> words_freq;
-
 	
 	string line;
 	ll pos_wobin_freq = 0, neg_wobin_freq = 0, pos_wbin_freq = 0, neg_wbin_freq = 0; // total word frequencies
