@@ -38,7 +38,8 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 		word_info.second.first = 0;
 		word_info.second.second = 0;
 	}
-	// populate freq_word
+
+	//populate freq_word
 	ifstream in(train_data);
 	if (!in.is_open()) {
 		cerr << "File opening failed\n";
@@ -46,5 +47,61 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 	}
 	
 	string line;
-	ll pos_wobin_freq = 0, neg_wobin_freq = 0, pos_wbin_freq = 0, neg_wbin_freq = 0; // total word frequencies
+	ll p_wobin_freq = 0, n_wobin_freq = 0, p_wbin_freq = 0, n_wbin_freq = 0; //total word frequencies
+
+
+	//process each bow review in one iteration
+	while (getline(in, line)) {
+
+		//obtain sentiment of the review
+		stringstream ss;
+		ss.str(line);
+		ll rating;
+		bool is_pos;
+		ss >> rating;
+		if (rating <= Max_n) {
+			is_pos = false;
+			++reviews_n;
+		} else if (rating >= Min_p) {
+			is_pos = true;
+			++reviews_p;
+		} else {
+			cerr << "Unexpected Neutral: " << rating << "\n";
+			exit(0);
+		}
+
+		//process the words encoded as bow and populate freq_word
+		ll a, b;
+		char discard;
+		while (!ss.eof()) {
+			ss >> a;
+			ss.get(discard);
+			ss >> b;
+			ss.get(discard);
+			if (sw_drop && binary_search(stop_words.begin(), stop_words.end(), voca_word[a])) {
+				continue;
+			}
+			if (is_pos) {
+				freq_word[a].first.first += b;
+				p_wobin_freq += b;
+				freq_word[a].second.first += 1;
+				++p_wbin_freq;
+			} else {
+				freq_word[a].first.second += b;
+				n_wobin_freq += b;
+				freq_word[a].second.second += 1;
+				++n_wbin_freq;
+			}
+		}
+	}
+
+	in.close();
+
+	// populate prob_word
+	for (ll i = 0; i < voca_size; i++) {
+		prob_word[i].first.first = (1.0 + freq_word[i].first.first) / (p_wobin_freq + voca_size);
+		prob_word[i].first.second = (1.0 + freq_word[i].first.second) / (n_wobin_freq + voca_size);
+		prob_word[i].second.first = (1.0 + freq_word[i].second.first) / (p_wbin_freq + voca_size);
+		prob_word[i].second.second = (1.0 + freq_word[i].second.second) / (n_wbin_freq + voca_size);
+	}
 }
