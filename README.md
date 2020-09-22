@@ -14,4 +14,6 @@
 
 - Feed Forward Neural Network 구현
 
-<iframe width="640" height="360" src="https://youtu.be/uhv_9Mhi-Q4" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+
+- Naive Bayes 구현
+<iframe width="2048" height="904" src="https://www.youtube.com/embed/uhv_9Mhi-Q4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
