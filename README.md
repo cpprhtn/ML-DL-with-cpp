@@ -16,5 +16,4 @@
 
 
 - Naive Bayes 구현 (2배속)
-<a href="https://www.youtube.com/embed/uhv_9Mhi-Q4" target="_blank"><img src="https://www.youtube.com/embed/uhv_9Mhi-Q4.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<a href="https://www.youtube.com/embed/uhv_9Mhi-Q4" target="_blank"><img src="https://user-images.githubusercontent.com/63298243/93894335-9300a180-fd29-11ea-811e-b8c80c88106e.png" width="854" height="480" border="10" /></a>
