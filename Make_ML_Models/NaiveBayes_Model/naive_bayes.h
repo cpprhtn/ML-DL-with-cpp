@@ -15,8 +15,8 @@ using namespace std;
 
 class NaiveBayesClassifier {
 public:
-	NaiveBayesClassifier();
 
+	NaiveBayesClassifier();
 
 	/*Parameters:
 	Max_n - 부정 정서로 간주되는 최대 등급
@@ -42,7 +42,6 @@ public:
 	using_2 - binarization 사용 시 true
 	*/
 	vector<string> most_important(ll num, bool using_2);
-	
 
 private:
 
@@ -85,7 +84,6 @@ private:
 
 	//stopwards 생략시 bool 값은 True
 	bool sw_drop;
-	
 };
 
 #endif
