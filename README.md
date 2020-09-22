@@ -16,4 +16,5 @@
 
 
 - Naive Bayes 구현 (2배속)
-<iframe width="854" height="480" src="https://www.youtube.com/embed/uhv_9Mhi-Q4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<a href="https://www.youtube.com/embed/uhv_9Mhi-Q4" target="_blank"><img src="https://www.youtube.com/embed/uhv_9Mhi-Q4.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
