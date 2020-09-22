@@ -157,7 +157,7 @@ void NaiveBayesClassifier::test(const string& test_bow_file, bool using_2) {
 
 }
 
-vector<string> NaiveBayesClassifier::mostInformative(ll num, bool using_2) {
+vector<string> NaiveBayesClassifier::most_important(ll num, bool using_2) {
 	vector<pair<ld,ll>> temp;
 	for(int i =0 ;i<prob_word.size(); i++) {
 		if(!using_2)
