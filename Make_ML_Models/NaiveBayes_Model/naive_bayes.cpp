@@ -1,14 +1,13 @@
-#include <sstream>
-#include <algorithm>
+#include "naive_bayes.h"
+
 #include <cmath>
+#include <algorithm>
+#include <sstream>
 #include <iomanip>
 #include <utility>
 
-#include "naive_bayes.h"
 
-NaiveBayesClassifier::NaiveBayesClassifier() {
-
-}
+NaiveBayesClassifier::NaiveBayesClassifier() {;}
 
 NaiveBayesClassifier::NaiveBayesClassifier(
 	int Max_n, int Min_p, const string& train_data,
@@ -106,7 +105,7 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 	}
 }
 
-void NaiveBayesClassifier::test(const string& test_bow_file, bool use_bin) {
+void NaiveBayesClassifier::test(const string& test_bow_file, bool using_2) {
 	ifstream in(test_bow_file);
 	if (!in.is_open()) {
 		cerr << "File opening failed\n";
@@ -133,7 +132,7 @@ void NaiveBayesClassifier::test(const string& test_bow_file, bool use_bin) {
 		}
 
 		//classify the instance
-		if (classify(ss, use_bin)) {
+		if (classify(ss, using_2)) {
 			if (is_pos) {
 				++tp;
 			} else {
@@ -155,4 +154,62 @@ void NaiveBayesClassifier::test(const string& test_bow_file, bool use_bin) {
 	<< "Precision: " << (static_cast<double>(tp)) / (tp + fp) << "\n"
 	<< "Recall: " << (static_cast<double>(tp)) / (tp + fn) << "\n"
 	<< "F1 Measure: " << (2 * static_cast<double>(tp)) / (2 * tp + fp + fn) << "\n";
+
+}
+
+vector<string> NaiveBayesClassifier::mostInformative(ll num, bool using_2) {
+	vector<pair<ld,ll>> temp;
+	for(int i =0 ;i<prob_word.size(); i++) {
+		if(!using_2)
+			temp.push_back(make_pair(prob_word[i].first.first/prob_word[i].first.second,i));
+		else temp.push_back(make_pair(prob_word[i].second.first/prob_word[i].second.second,i));
+	}
+	sort(temp.begin(),temp.end());
+	reverse(temp.begin(),temp.end());
+
+	//return num number of features
+	vector<string> return_vec;
+	for(int i=0; i<num; i++)	return_vec.push_back(voca_word[temp[i].second]);
+	return return_vec;
+}
+
+vector<string> NaiveBayesClassifier::readWords(const string& sw_file) {
+	ifstream fin(sw_file,ios::in);
+	vector<string> data;
+
+	while(!fin.eof()){
+		string s;
+		fin>>s;
+		stringstream str(s);
+		data.push_back(s);
+	}
+	return data;
+}
+
+bool NaiveBayesClassifier::classify(stringstream& bow_review_instance, bool using_2) {
+	stringstream& ss = bow_review_instance;
+	ld prob_p = log(static_cast<ld>(reviews_p) / (reviews_p + reviews_n));
+	ld prob_n = log(static_cast<ld>(reviews_n) / (reviews_p + reviews_n));
+
+	ll a, b;
+	char discard;
+	while (!ss.eof()) {
+		ss >> a;
+		ss.get(discard);
+		ss >> b;
+		ss.get(discard);
+
+		// skip if this is a stopword
+		if (sw_drop && binary_search(stop_words.begin(), stop_words.end(), voca_word[a])) {
+			continue;
+		}
+		if (using_2) {
+			prob_p += log(prob_word[a].second.first);
+			prob_n += log(prob_word[a].second.second);
+		} else {
+			prob_p += (b * log(prob_word[a].first.first));
+			prob_n += (b * log(prob_word[a].first.second));
+		}
+	}
+	return (prob_p >= prob_n ? true : false);
 }
