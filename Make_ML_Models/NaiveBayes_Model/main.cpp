@@ -8,7 +8,7 @@ using namespace std;
 #include "naive_bayes.h"
 
 int main() {
-	// setting
+	//setting
 	int Max_n = 4, Max_p = 7;
 	string train_data = "../train.feat";
 	string test_data = "../test.feat";

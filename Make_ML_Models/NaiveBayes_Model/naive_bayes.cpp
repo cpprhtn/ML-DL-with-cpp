@@ -16,7 +16,7 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 	int Max_n, int Min_p, const string& train_data,
 	const string& voca_data, const string& sw_data = "") {
 
-	// setting
+	//setting
 	reviews_p = 0;
 	reviews_n = 0;
 	this -> Max_n = Max_n;
@@ -31,7 +31,7 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 
 	vector<pair<pair<ll, ll>, pair<ll, ll>>> words_freq;
 
-	// setup words_freq and prob_word
+	//setup
 	words_freq.resize(voca_size);
 	prob_word.resize(voca_size);
 	for (auto& word_info: words_freq) {
@@ -41,19 +41,18 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 		word_info.second.second = 0;
 	}
 
-	// populate words_freq
+	//populate
 	ifstream in(train_data);
 	if (!in.is_open()) {
 		cerr << "File opening failed\n";
 		exit(0);
 	}
 	string line;
-	ll pos_wobin_freq = 0, neg_wobin_freq = 0, pos_wbin_freq = 0, neg_wbin_freq = 0; // total word frequencies
-
-	// process each bow review in one iteration
+	ll pos_wobin_freq = 0, neg_wobin_freq = 0, pos_wbin_freq = 0, neg_wbin_freq = 0;
+	//iteration 하나당 review도 한번검토
 	while (getline(in, line)) {
 
-		// obtain sentiment of the review
+		//review값 확인
 		stringstream ss;
 		ss.str(line);
 		ll rating;
@@ -70,7 +69,7 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 			exit(0);
 		}
 
-		// process the words encoded as bow and populate words_freq
+		//encoded된 단어 처리
 		ll a, b;
 		char discard;
 		while (!ss.eof()) {
@@ -97,7 +96,7 @@ NaiveBayesClassifier::NaiveBayesClassifier(
 
 	in.close();
 
-	// populate prob_word
+	//populate
 	for (ll i = 0; i < voca_size; i++) {
 		prob_word[i].first.first = (1.0 + words_freq[i].first.first) / (pos_wobin_freq + voca_size);
 		prob_word[i].first.second = (1.0 + words_freq[i].first.second) / (neg_wobin_freq + voca_size);
@@ -115,9 +114,9 @@ void NaiveBayesClassifier::test(const string& test_bow_file, bool use_bin) {
 
 	ll tp = 0, fp = 0, fn = 0, tn = 0;
 	string line;
-	// consider one review in each iteration
+	//iteration 하나당 review도 한번검토
 	while (getline(in, line)) {
-		// obtain the sentiment of the review
+		//review 값 확인
 		ll rating;
 		stringstream ss;
 		ss.str(line);
@@ -132,7 +131,7 @@ void NaiveBayesClassifier::test(const string& test_bow_file, bool use_bin) {
 			exit(0);
 		}
 
-		// classify the instance
+		//인스턴스 분류
 		if (classify(ss, use_bin)) {
 			if (is_pos) {
 				++tp;
@@ -149,7 +148,7 @@ void NaiveBayesClassifier::test(const string& test_bow_file, bool use_bin) {
 	}
 	in.close();
 
-	// print statistics
+	//실제 출력 구간
 	cout << fixed << setprecision(6)
 	<< "Accuracy: " << (static_cast<double>(tp + tn) / (tp + tn + fp + fn)) * 100 << "%\n"
 	<< "Precision: " << (static_cast<double>(tp)) / (tp + fp) << "\n"
@@ -158,7 +157,7 @@ void NaiveBayesClassifier::test(const string& test_bow_file, bool use_bin) {
 }
 
 vector<string> NaiveBayesClassifier::most_important(ll num, bool use_bin) {
-	// find P(w/+ve sentiment) / P(w/-ve sentiment) for each word
+	//find P(w/+ve sentiment) / P(w/-ve sentiment) for each word
 	vector<pair<ld,ll>> temp;
 	for(int i =0 ;i<prob_word.size(); i++) {
 		if(!use_bin)
@@ -168,7 +167,7 @@ vector<string> NaiveBayesClassifier::most_important(ll num, bool use_bin) {
 	sort(temp.begin(),temp.end());
 	reverse(temp.begin(),temp.end());
 
-	// return num number of features
+	//num 변수의 특성 반환
 	vector<string> return_vec;
 	for(int i=0; i<num; i++)	return_vec.push_back(voca_word[temp[i].second]);
 	return return_vec;
@@ -200,7 +199,7 @@ bool NaiveBayesClassifier::classify(stringstream& bow_review_instance, bool use_
 		ss >> b;
 		ss.get(discard);
 
-		// skip if this is a stopword
+		//stopword이면 skip
 		if (sw_drop && binary_search(stop_words.begin(), stop_words.end(), voca_word[a])) {
 			continue;
 		}
