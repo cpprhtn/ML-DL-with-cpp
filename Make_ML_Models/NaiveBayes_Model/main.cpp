@@ -10,10 +10,10 @@ using namespace std;
 int main() {
 	// setting
 	int Max_n = 4, Max_p = 7;
-	string train_data = "../data/train.feat";
-	string test_data = "../data/test.feat";
-	string voca_data = "../data/imdb.vocab";
-	string sw_data = "../data/sw";
+	string train_data = "../train.feat";
+	string test_data = "../test.feat";
+	string voca_data = "../vocadb.vocab";
+	string sw_data = "../sw";
 	ll num_words = 10;
 	vector<string> words;
 

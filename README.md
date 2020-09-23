@@ -12,8 +12,9 @@
 
 
 
-- Feed Forward Neural Network 구현
-
-
+- Feed Forward 구현
+- Backpropagation 구현
+- Single layer Perceptron 구현
+- Multi layer Perceptron 구현
 - Naive Bayes 구현 (2배속)
 <a href="https://www.youtube.com/embed/uhv_9Mhi-Q4" target="_blank"><img src="https://user-images.githubusercontent.com/63298243/93894335-9300a180-fd29-11ea-811e-b8c80c88106e.png" width="854" height="480" border="10" /></a>
