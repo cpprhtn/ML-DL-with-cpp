@@ -4,6 +4,25 @@
 
 class EX;
 
+class Instance {
+	public:
+		Instance();
+};
+
+class Example: public Instance {
+	public:
+		Example();
+
+		Example(
+			const std::vector<std::string>& attr_names, const std::vector<std::string>& attr_vals,
+			const std::string& target_class);
+
+		std::string getTargetClass() const;
+
+	private:
+		std::string target_class;
+};
+
 class DecisionTree {
 	public:
 		void addAttrInfo(
