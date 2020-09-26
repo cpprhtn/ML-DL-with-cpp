@@ -5,8 +5,8 @@
 
 
 
-##Using Editor
-**여기에 사용한 코드는 C++11 기반이다**
+## Using Editor
+**여기에 사용한 코드는 C++11/14 기반이다**
 - Visual Studio Code   (mac)
 - Visual Studio 19     (window)
 
