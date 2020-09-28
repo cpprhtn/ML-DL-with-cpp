@@ -8,21 +8,24 @@ class DecisionTreeNode {
 	public:
 		DecisionTreeNode();
 
+		//setting
 		void setAttrName(const std::string& attributeName);
-
-		std::string getAttrName();
-
 		void setType(const std::string& type);
-
-		std::string getType();
-
 		void setMaxTargetVal(const std::string& max_T_val);
 
+
+		std::string getAttrName();
+		std::string getType();
 		std::string getMaxTargetVal();
 
 	protected:
+		//leaf type일 경우 target value가 됨
 		std::string attributeName; 
+
+		//discrete, continuous, leaf 중 하나의 type
 		std::string type; 
+
+		//target value의 최대치
 		std::string max_T_val;
 };
 
