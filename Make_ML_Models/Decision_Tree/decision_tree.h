@@ -1,6 +1,8 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
+
 //노드 형태 먼저 구현
 class DecisionTreeNode {
 	public:
@@ -29,13 +31,28 @@ class EX;
 class Instance {
 	public:
 		Instance();
+
+		//exam 인스턴스 생성
+		Instance(const EX& exam);
+
+		Instance(
+			const std::vector<std::string>& attr_names, const std::vector<std::string>& attr_vals);
+
+    std::string operator[](const std::string& attr_name) const;
+
+    void setAttrVal(const std::string& attr_name, const std::string& attr_val);
+
+		friend std::ostream& operator<<(std::ostream& out, const Instance& inst);
+
+	protected:
+		std::unordered_map<std::string, std::string> els;
 };
 
-class Example: public Instance {
+class EX: public Instance {
 	public:
-		Example();
+		EX();
 
-		Example(
+		EX(
 			const std::vector<std::string>& attributeNames, const std::vector<std::string>& attr_vals,
 			const std::string& target_class);
 
