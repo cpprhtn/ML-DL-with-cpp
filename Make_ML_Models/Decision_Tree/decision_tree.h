@@ -39,11 +39,11 @@ class Instance {
 		Instance(const EX& exam);
 
 		Instance(
-			const std::vector<std::string>& attr_names, const std::vector<std::string>& attr_vals);
+			const std::vector<std::string>& atb_names, const std::vector<std::string>& atb_vals);
 
-    std::string operator[](const std::string& attr_name) const;
+    std::string operator[](const std::string& atb_name) const;
 
-    void setAttrVal(const std::string& attr_name, const std::string& attr_val);
+    void setAttrVal(const std::string& atb_name, const std::string& atb_val);
 
 		friend std::ostream& operator<<(std::ostream& out, const Instance& inst);
 
@@ -56,7 +56,7 @@ class EX: public Instance {
 		EX();
 
 		EX(
-			const std::vector<std::string>& attributeNames, const std::vector<std::string>& attr_vals,
+			const std::vector<std::string>& attributeNames, const std::vector<std::string>& atb_vals,
 			const std::string& target_class);
 
 		std::string getTargetClass() const;
@@ -69,7 +69,7 @@ class DecisionTree {
 	public:
 		void addAttrInfo(
             const std::string& attributeName,
-			const std::vector<std::string>& attr_vals);
+			const std::vector<std::string>& atb_vals);
 
 		void addTargetValues(const std::vector<std::string>& target_values);
 
