@@ -9,11 +9,11 @@ DecisionTreeNode::DecisionTreeNode() {
 	;
 }
 
-void DecisionTreeNode::setAttrName(const std::string& atb_name) {
+void DecisionTreeNode::set_atb_Name(const std::string& atb_name) {
 	this -> atb_name = atb_name;
 }
 
-std::string DecisionTreeNode::getAttrName() {
+std::string DecisionTreeNode::get_atb_Name() {
 	return atb_name;
 }
 
