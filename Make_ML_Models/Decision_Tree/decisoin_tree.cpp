@@ -31,3 +31,4 @@ void DecisionTreeNode::setMaxTargetVal(const std::string& max_T_val) {
 
 std::string DecisionTreeNode::getMaxTargetVal() {
 	return max_T_val;
+}
