@@ -9,18 +9,18 @@ class DecisionTreeNode {
 		DecisionTreeNode();
 
 		//setting
-		void setAttrName(const std::string& attributeName);
+		void set_atb_Name(const std::string& atb_name);
 		void setType(const std::string& type);
 		void setMaxTargetVal(const std::string& max_T_val);
 
 
-		std::string getAttrName();
+		std::string get_atb_Name();
 		std::string getType();
 		std::string getMaxTargetVal();
 
 	protected:
 		//leaf type일 경우 target value가 됨
-		std::string attributeName; 
+		std::string atb_name; 
 
 		//discrete, continuous, leaf 중 하나의 type
 		std::string type; 
@@ -43,7 +43,7 @@ class Instance {
 
     std::string operator[](const std::string& atb_name) const;
 
-    void setAttrVal(const std::string& atb_name, const std::string& atb_val);
+    void set_atb_Val(const std::string& atb_name, const std::string& atb_val);
 
 		friend std::ostream& operator<<(std::ostream& out, const Instance& inst);
 
@@ -56,7 +56,7 @@ class EX: public Instance {
 		EX();
 
 		EX(
-			const std::vector<std::string>& attributeNames, const std::vector<std::string>& atb_vals,
+			const std::vector<std::string>& atb_names, const std::vector<std::string>& atb_vals,
 			const std::string& target_class);
 
 		std::string getTargetClass() const;
@@ -67,8 +67,8 @@ class EX: public Instance {
 
 class DecisionTree {
 	public:
-		void addAttrInfo(
-            const std::string& attributeName,
+		void add_atb_Info(
+            const std::string& atb_name,
 			const std::vector<std::string>& atb_vals);
 
 		void addTargetValues(const std::vector<std::string>& target_values);
@@ -87,5 +87,5 @@ class DecisionTree {
 		std::string classify(const Instance& inst, DecisionTreeNode *p);
 
 		void build(std::vector<EX> train_data, DecisionTreeNode*& p,
-			std::vector<std::string> check_attr, int& nodes);
+			std::vector<std::string> check__atb_, int& nodes);
 };
