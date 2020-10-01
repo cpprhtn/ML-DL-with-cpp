@@ -86,8 +86,7 @@ class DecisionTree {
 
 		std::string classify(const Instance& inst, DecisionTreeNode *p);
 
-		void build(std::vector<EX> train_data, DecisionTreeNode*& p,
-			std::vector<std::string> check__atb_, int& nodes);
+		void build(std::vector<EX> train_data, DecisionTreeNode*& p, std::vector<std::string> check__atb_, int& nodes);
 		
 		double discInfoGain(std::vector<EX>& els_ref, const std::string& attr_name, bool in_place);
 
