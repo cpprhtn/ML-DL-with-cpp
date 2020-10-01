@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <map>
 
 //노드 형태 먼저 구현
 class DecisionTreeNode {
@@ -38,14 +39,13 @@ class Instance {
 		//exam 인스턴스 생성
 		Instance(const EX& exam);
 
-		Instance(
-			const std::vector<std::string>& atb_names, const std::vector<std::string>& atb_vals);
+		Instance(const std::vector<std::string>& atb_names, const std::vector<std::string>& atb_vals);
 
     std::string operator[](const std::string& atb_name) const;
 
     void set_atb_Val(const std::string& atb_name, const std::string& atb_val);
 
-		friend std::ostream& operator<<(std::ostream& out, const Instance& inst);
+	friend std::ostream& operator<<(std::ostream& out, const Instance& inst);
 
 	protected:
 		std::unordered_map<std::string, std::string> els;
@@ -88,4 +88,18 @@ class DecisionTree {
 
 		void build(std::vector<EX> train_data, DecisionTreeNode*& p,
 			std::vector<std::string> check__atb_, int& nodes);
+		
+		double discInfoGain(std::vector<EX>& els_ref, const std::string& attr_name, bool in_place);
+
+		std::pair<double, std::vector<double>> contInfoGain(const std::vector<EX>& els, const std::string& attr_name);
+
+		double calcEntropy(const std::map<std::string, int>& els);
+
+		void print(DecisionTreeNode *p);
+
+		std::unordered_map<std::string, std::vector<std::string> > pos_vals;
+
+		DecisionTreeNode *root;
+
+    std::vector<std::string> target_values;
 };
