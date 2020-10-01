@@ -81,7 +81,7 @@ class DecisionTree {
 		void printStats(const std::vector<EX>& test_data);
 
 
-		protected:
+	protected:
 		int prune(DecisionTreeNode* p, std::vector<EX> prune_data);
 
 		std::string classify(const Instance& inst, DecisionTreeNode *p);
@@ -101,5 +101,5 @@ class DecisionTree {
 
 		DecisionTreeNode *root;
 
-    std::vector<std::string> target_values;
+    	std::vector<std::string> target_values;
 };
