@@ -83,11 +83,11 @@ class DecisionTree {
 
 	protected:
 		int prune(DecisionTreeNode* p, std::vector<EX> prune_data);
+		void build(std::vector<EX> train_data, DecisionTreeNode*& p, std::vector<std::string> check__atb_, int& nodes);
+
 
 		std::string classify(const Instance& inst, DecisionTreeNode *p);
 
-		void build(std::vector<EX> train_data, DecisionTreeNode*& p, std::vector<std::string> check__atb_, int& nodes);
-		
 		double discInfoGain(std::vector<EX>& els_ref, const std::string& attr_name, bool in_place);
 
 		std::pair<double, std::vector<double>> contInfoGain(const std::vector<EX>& els, const std::string& attr_name);
