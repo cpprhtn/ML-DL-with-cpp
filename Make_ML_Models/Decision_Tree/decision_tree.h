@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
+#include <set>
 
 //노드 형태 먼저 구현
 class DecisionTreeNode {
@@ -31,6 +32,12 @@ class DecisionTreeNode {
 };
 
 class EX;
+
+class Reader {
+	public:
+		static std::vector<std::vector<std::string> > readData(std::string file_loc);
+		static std::set <std::string> read_T_val(std::string file_loc, int n);
+};
 
 class Instance {
 	public:
