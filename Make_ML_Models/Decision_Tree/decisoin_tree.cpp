@@ -32,3 +32,22 @@ void DecisionTreeNode::setMaxTargetVal(const std::string& max_T_val) {
 std::string DecisionTreeNode::getMaxTargetVal() {
 	return max_T_val;
 }
+
+Instance::Instance() {
+	;
+}
+
+Instance::Instance(const EX& exmp) {
+	els = exmp.els;
+}
+
+Instance::Instance(
+	const std::vector<std::string>& atb_names, const std::vector<std::string>& atb_vals) {
+	for (int i = 0; i < atb_names.size(); i++) {
+		els[atb_names[i]] = atb_vals[i];
+	}
+}
+
+std::string Instance::operator[](const std::string& atb_name) const {
+	return els.at(atb_name);
+}
