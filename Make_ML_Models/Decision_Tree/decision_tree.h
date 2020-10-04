@@ -66,7 +66,7 @@ class EX: public Instance {
 			const std::vector<std::string>& atb_names, const std::vector<std::string>& atb_vals,
 			const std::string& target_class);
 
-		std::string getTargetClass() const;
+		std::string get_T_Class() const;
 
 	private:
 		std::string target_class;
@@ -78,7 +78,7 @@ class DecisionTree {
             const std::string& atb_name,
 			const std::vector<std::string>& atb_vals);
 
-		void addTargetValues(const std::vector<std::string>& target_values);
+		void add_T_Val(const std::vector<std::string>& target_values);
 
 		void build(const std::vector<EX>& train_data);
         double test(const std::vector<EX>& test_data);
