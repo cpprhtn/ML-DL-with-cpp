@@ -51,3 +51,7 @@ Instance::Instance(
 std::string Instance::operator[](const std::string& atb_name) const {
 	return els.at(atb_name);
 }
+
+void Instance::set_atb_Val(const std::string& atb_name, const std::string& atb_val) {
+  els[atb_name] = atb_val;
+}
