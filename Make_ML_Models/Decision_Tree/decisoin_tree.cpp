@@ -55,3 +55,14 @@ std::string Instance::operator[](const std::string& atb_name) const {
 void Instance::set_atb_Val(const std::string& atb_name, const std::string& atb_val) {
   els[atb_name] = atb_val;
 }
+
+
+std::ostream& operator<<(std::ostream& out, const Instance& inst) {
+	for (auto it = inst.els.begin(); it != inst.els.end(); it++) {
+		out << it -> first;
+		out << ": ";
+		out << it -> second;
+		out << ", ";
+	}
+	return out;
+}
