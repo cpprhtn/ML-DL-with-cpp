@@ -67,11 +67,11 @@ std::ostream& operator<<(std::ostream& out, const Instance& inst) {
 	return out;
 }
 
-EX::Example() {
+EX::EX() {
 	;
 }
 
-EX::Example(
+EX::EX(
 	const std::vector<std::string>& atb_names, const std::vector<std::string>& atb_vals,
 	const std::string& target_class) {
 	for (int i = 0; i < atb_names.size(); i++) {
@@ -80,6 +80,6 @@ EX::Example(
 	this -> target_class = target_class;
 }
 
-std::string EX::getTargetClass() const {
+std::string EX::get_T_Class() const {
 	return target_class;
 }
