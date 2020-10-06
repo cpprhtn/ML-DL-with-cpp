@@ -83,3 +83,8 @@ EX::EX(
 std::string EX::get_T_Class() const {
 	return target_class;
 }
+
+void DecisionTree::add_atb_Info(
+	const std::string& atb_name, const std::vector<std::string>& atb_vals) {
+	p_vals[atb_name] = atb_vals;
+}
