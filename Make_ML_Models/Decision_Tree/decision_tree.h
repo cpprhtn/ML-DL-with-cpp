@@ -103,7 +103,7 @@ class DecisionTree {
 
 		void print(DecisionTreeNode *p);
 
-		std::unordered_map<std::string, std::vector<std::string> > pos_vals;
+		std::unordered_map<std::string, std::vector<std::string> > p_vals;
 
 		DecisionTreeNode *root;
 
