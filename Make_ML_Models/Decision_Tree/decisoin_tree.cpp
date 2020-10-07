@@ -88,3 +88,7 @@ void DecisionTree::add_atb_Info(
 	const std::string& atb_name, const std::vector<std::string>& atb_vals) {
 	p_vals[atb_name] = atb_vals;
 }
+
+void DecisionTree::add_T_Val(const std::vector<std::string>& target_values) {
+	this -> target_values = target_values;
+}
