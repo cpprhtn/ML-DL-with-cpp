@@ -95,9 +95,9 @@ class DecisionTree {
 
 		std::string classify(const Instance& inst, DecisionTreeNode *p);
 
-		double discInfoGain(std::vector<EX>& els_ref, const std::string& attr_name, bool in_place);
+		double discInfoGain(std::vector<EX>& els_ref, const std::string& atb_name, bool in_place);
 
-		std::pair<double, std::vector<double>> contInfoGain(const std::vector<EX>& els, const std::string& attr_name);
+		std::pair<double, std::vector<double>> contInfoGain(const std::vector<EX>& els, const std::string& atb_name);
 
 		double calcEntropy(const std::map<std::string, int>& els);
 
