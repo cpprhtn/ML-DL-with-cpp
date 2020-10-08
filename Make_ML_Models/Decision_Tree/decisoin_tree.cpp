@@ -101,3 +101,22 @@ void DecisionTree::build(const std::vector<EX>& train_data) {
 	int nodes = 0;
 	build(train_data, root, atb_all, nodes);
 }
+
+void DecisionTree::build(std::vector<EX> train_data,
+	DecisionTreeNode*& p, std::vector<std::string> check_atb, int& nodes) {
+
+	std::string Max_O_T_Val;
+
+	if (!train_data.empty()) {
+		std::map<std::string, int> occ;
+		for (auto const& x: train_data) {
+			occ[x.get_T_Class()]++;
+		}
+		int max = -1;
+		for (auto const& x: occ) {
+			if (x.second > max) {
+				max = x.second;
+				Max_O_T_Val = x.first;
+			}
+		}
+	}
