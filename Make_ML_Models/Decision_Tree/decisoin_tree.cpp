@@ -92,3 +92,12 @@ void DecisionTree::add_atb_Info(
 void DecisionTree::add_T_Val(const std::vector<std::string>& target_values) {
 	this -> target_values = target_values;
 }
+
+void DecisionTree::build(const std::vector<EX>& train_data) {
+	std::vector<std::string> atb_all;
+	for (auto it = p_vals.begin(); it != p_vals.end(); it++) {
+		atb_all.push_back(it -> first);
+	}
+	int nodes = 0;
+	build(train_data, root, atb_all, nodes);
+}
