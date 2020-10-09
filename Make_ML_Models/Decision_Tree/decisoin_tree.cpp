@@ -25,11 +25,11 @@ std::string DecisionTreeNode::getType() {
 	return type;
 }
 
-void DecisionTreeNode::setMaxTargetVal(const std::string& max_T_val) {
+void DecisionTreeNode::set_Max_T_Val(const std::string& max_T_val) {
 	this -> max_T_val = max_T_val;
 }
 
-std::string DecisionTreeNode::getMaxTargetVal() {
+std::string DecisionTreeNode::get_Max_T_Val() {
 	return max_T_val;
 }
 
@@ -119,4 +119,25 @@ void DecisionTree::build(std::vector<EX> train_data,
 				Max_O_T_Val = x.first;
 			}
 		}
+	}
+
+	//교육 데이터가 있는지 확인하고, 없는 경우 무작위로 대상 클래스를 할당
+	if (check_atb.empty()) {
+		p = new DecisionTreeNode;++nodes;
+		if (train_data.empty()) {
+			p -> set_atb_Name(target_values[0]);
+		} else {
+			p -> set_atb_Name(Max_O_T_Val);
+		}
+		p -> setType("leaf");
+		p -> set_Max_T_Val(p -> get_atb_Name());
+		return;
+	}
+
+	if (train_data.empty()) {
+		p = new DecisionTreeNode;++nodes;
+		p -> set_atb_Name(target_values[0]);
+		p -> setType("leaf");
+		p -> set_Max_T_Val(p -> get_atb_Name());
+		return;
 	}
