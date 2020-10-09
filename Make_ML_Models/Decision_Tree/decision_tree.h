@@ -13,12 +13,12 @@ class DecisionTreeNode {
 		//setting
 		void set_atb_Name(const std::string& atb_name);
 		void setType(const std::string& type);
-		void setMaxTargetVal(const std::string& max_T_val);
+		void set_Max_T_Val(const std::string& max_T_val);
 
 
 		std::string get_atb_Name();
 		std::string getType();
-		std::string getMaxTargetVal();
+		std::string get_Max_T_Val();
 
 	protected:
 		//leaf type일 경우 target value가 됨
