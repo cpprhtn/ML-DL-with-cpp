@@ -166,7 +166,7 @@ void DecisionTree::build(std::vector<EX> train_data,
 		//노드의 attribute 확인
     	for (int i = 0; i < check_atb.size(); i++) {
 			if (p_vals[check_atb[i]].size() == 0) {
-				
+
 				std::pair<double, std::vector<double>>temp = contInfoGain(
 					train_data, check_atb[i]);
 				double cand_gain = temp.first;
@@ -186,4 +186,48 @@ void DecisionTree::build(std::vector<EX> train_data,
 				}
 			}
 		}
+		//attribute 확인 후
+		std::string atb_name = check_atb[Max_index];
+    	check_atb.erase(check_atb.begin() + Max_index);
+
+    	if (is_cont) {
+			p = new ContAttrDecisionTreeNode;++nodes;
+      		p -> setType("continuous");
+      		p -> set_atb_Name(atb_name);
+			p -> set_Max_T_Val(Max_O_T_Val);
+
+      		ContAttrDecisionTreeNode *pp = static_cast<ContAttrDecisionTreeNode*>(p);
+      		pp -> setDivide(divide);
+
+      		std::vector<std::vector<EX>> bins;
+      		bins.resize(divide.size() + 1);
+      		for (int i = 0; i < train_data.size(); i++) {
+      			bins[pp -> getIndex(std::stof(train_data[i][atb_name]))].push_back(train_data[i]);
+			  }
+			  // iterating through each child
+      for (int i = 0; i <= divide.size(); i++) {
+        build(bins[i], pp -> getChildPointer(i), check_atb, nodes);
+      }
+
+    } else {
+      discInfoGain(train_data, atb_name, true);
+
+      p = new Discrete_DecisionTreeNode;++nodes;
+      p -> setType("discrete");
+      p -> set_atb_Name(atb_name);
+			p -> set_Max_T_Val(Max_O_T_Val);
+
+      Discrete_DecisionTreeNode *pp = static_cast<Discrete_DecisionTreeNode*>(p);
+
+      std::map<std::string, std::vector<EX>> bins;
+      for (int i = 0; i < train_data.size(); i++) {
+      	bins[train_data[i][atb_name]].push_back(train_data[i]);
+      }
+
+			for (int i = 0; i < p_vals[atb_name].size(); i++) {
+				build(bins[p_vals[atb_name][i]], (*pp)[p_vals[atb_name][i]],
+					check_atb, nodes);
+			}
+		}
 	}
+}

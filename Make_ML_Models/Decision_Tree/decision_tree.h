@@ -109,3 +109,16 @@ class DecisionTree {
 
     	std::vector<std::string> target_values;
 };
+
+class Discrete_DecisionTreeNode: public DecisionTreeNode {
+	public:
+		Discrete_DecisionTreeNode();
+
+		//'atb_val'에 해당하는 자식포인터 반환
+		DecisionTreeNode*& operator[](const std::string& atb_val);
+
+		//현재 노드의 모든 하위 포인터를 반환
+		std::pair<std::vector<std::string>, std::vector<DecisionTreeNode*>> getChildPointers();
+	private:
+		std::unordered_map<std::string, DecisionTreeNode*> child;
+};
