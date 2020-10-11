@@ -121,7 +121,7 @@ void DecisionTree::build(std::vector<EX> train_data,
 		}
 	}
 
-	//교육 데이터가 있는지 확인하고, 없는 경우 무작위로 대상 클래스를 할당
+	//Training 데이터가 있는지 확인하고, 없는 경우 무작위로 대상 클래스를 할당
 	if (check_atb.empty()) {
 		p = new DecisionTreeNode;++nodes;
 		if (train_data.empty()) {
@@ -140,4 +140,26 @@ void DecisionTree::build(std::vector<EX> train_data,
 		p -> setType("leaf");
 		p -> set_Max_T_Val(p -> get_atb_Name());
 		return;
+	}
+
+	//Target class가 같은지 확인
+	bool leaf = true;
+	std::string target_class = train_data[0].get_T_Class();
+	for (int i = 1; i < train_data.size(); i++) {
+		if (train_data[i].get_T_Class() != target_class) {
+			leaf = false;
+			break;
+		}
+	}
+
+	if (leaf) {
+		p = new DecisionTreeNode;++nodes;
+		p -> set_atb_Name(target_class);
+		p -> set_Max_T_Val(p -> get_atb_Name());
+		p -> setType("leaf");
+	} else {
+		double Max_gain = -1;
+		int Max_index = 0;
+		std::vector<double> divide;
+		bool is_cont;
 	}
