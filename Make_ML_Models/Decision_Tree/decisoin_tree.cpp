@@ -162,4 +162,28 @@ void DecisionTree::build(std::vector<EX> train_data,
 		int Max_index = 0;
 		std::vector<double> divide;
 		bool is_cont;
+
+		//노드의 attribute 확인
+    	for (int i = 0; i < check_atb.size(); i++) {
+			if (p_vals[check_atb[i]].size() == 0) {
+				
+				std::pair<double, std::vector<double>>temp = contInfoGain(
+					train_data, check_atb[i]);
+				double cand_gain = temp.first;
+				if (cand_gain > Max_gain) {
+					Max_gain = cand_gain;
+					Max_index = i;
+					is_cont = true;
+					divide = temp.second;
+				}
+			} else {
+				double cand_gain = discInfoGain(train_data, check_atb[i], false);
+
+				if (cand_gain > Max_gain) {
+					Max_gain = cand_gain;
+					Max_index = i;
+					is_cont = false;
+				}
+			}
+		}
 	}
