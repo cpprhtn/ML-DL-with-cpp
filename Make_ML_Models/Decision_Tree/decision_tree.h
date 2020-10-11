@@ -134,6 +134,7 @@ class Continous_DecisionTreeNode: public DecisionTreeNode {
 		//operator 쓰기전에 call 필요
 		void set_Divide(const std::vector<double>& divide);
 
+		
 		int get_Index(const double& attr_val);
 
 		//현재 노드의 모든 하위 포인터를 반환
