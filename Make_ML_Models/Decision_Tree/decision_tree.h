@@ -118,7 +118,30 @@ class Discrete_DecisionTreeNode: public DecisionTreeNode {
 		DecisionTreeNode*& operator[](const std::string& atb_val);
 
 		//현재 노드의 모든 하위 포인터를 반환
-		std::pair<std::vector<std::string>, std::vector<DecisionTreeNode*>> getChildPointers();
+		std::pair<std::vector<std::string>, std::vector<DecisionTreeNode*>> get_Child_Ptrs();
 	private:
 		std::unordered_map<std::string, DecisionTreeNode*> child;
+};
+
+
+class Continous_DecisionTreeNode: public DecisionTreeNode {
+	public:
+		Continous_DecisionTreeNode();
+
+		//'atb_val'에 해당하는 자식포인터 반환
+		DecisionTreeNode*& operator[](const double& attr_val);
+
+		//operator 쓰기전에 call 필요
+		void set_Divide(const std::vector<double>& divide);
+
+		int get_Index(const double& attr_val);
+
+		//현재 노드의 모든 하위 포인터를 반환
+		std::vector<DecisionTreeNode*> get_Child_Ptrs();
+
+		//index의 하위 인덱스 반환
+		DecisionTreeNode*& get_Child_Ptr(const int& index);
+	private:
+		std::vector<double> divide;
+		std::vector<DecisionTreeNode*> child;
 };
