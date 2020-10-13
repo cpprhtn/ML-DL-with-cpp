@@ -82,14 +82,14 @@ class DecisionTree {
 
 		void build(const std::vector<EX>& train_data);
         double test(const std::vector<EX>& test_data);
-		void prune(const std::vector<EX>& prune_data);
+		void prune(const std::vector<EX>& p_data);
 
 		void print();
 		void printStats(const std::vector<EX>& test_data);
 
 
 	protected:
-		int prune(DecisionTreeNode* p, std::vector<EX> prune_data);
+		int prune(DecisionTreeNode* p, std::vector<EX> p_data);
 		void build(std::vector<EX> train_data, DecisionTreeNode*& p, std::vector<std::string> check__atb_, int& nodes);
 
 

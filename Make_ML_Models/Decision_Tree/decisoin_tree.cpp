@@ -233,3 +233,14 @@ void DecisionTree::build(std::vector<EX> train_data,
 		}
 	}
 }
+
+void DecisionTree::prune(const std::vector<EX>& p_data) {
+	prune(root, p_data);
+}
+
+
+int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
+	int num_err = 0;
+	for (int i = 0; i < p_data.size(); i++) {
+	}
+}
