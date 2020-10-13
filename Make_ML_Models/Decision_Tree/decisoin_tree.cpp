@@ -167,7 +167,7 @@ void DecisionTree::build(std::vector<EX> train_data,
     	for (int i = 0; i < check_atb.size(); i++) {
 			if (p_vals[check_atb[i]].size() == 0) {
 
-				std::pair<double, std::vector<double>>temp = contInfoGain(
+				std::pair<double, std::vector<double>>temp = C_InfoGain(
 					train_data, check_atb[i]);
 				double cand_gain = temp.first;
 				if (cand_gain > Max_gain) {
@@ -178,7 +178,7 @@ void DecisionTree::build(std::vector<EX> train_data,
 				}
 			} 
 			else {
-				double cand_gain = discInfoGain(train_data, check_atb[i], false);
+				double cand_gain = D_InfoGain(train_data, check_atb[i], false);
 
 				if (cand_gain > Max_gain) {
 					Max_gain = cand_gain;
@@ -212,7 +212,7 @@ void DecisionTree::build(std::vector<EX> train_data,
 
     	} 
 		else {
-      		discInfoGain(train_data, atb_name, true);
+      		D_InfoGain(train_data, atb_name, true);
 
       		p = new Discrete_DecisionTreeNode;++nodes;
       		p -> setType("discrete");
