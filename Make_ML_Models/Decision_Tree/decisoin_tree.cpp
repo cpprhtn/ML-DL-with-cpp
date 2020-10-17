@@ -243,4 +243,46 @@ int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
 	int num_err = 0;
 	for (int i = 0; i < p_data.size(); i++) {
 	}
+	if (p -> getType() == "leaf") {
+		return num_err;
+	}
+
+	int current_error = num_err;
+	int total_child_errors = 0;
+
+	if (p -> getType() == "discrete") {
+
+		std::map<std::string, std::vector<EX>> bins;
+		for (int i = 0; i < p_data.size(); i++) {
+			bins[p_data[i][p -> get_atb_Name()]].push_back(p_data[i]);
+		}
+
+		Discrete_DecisionTreeNode* pp = static_cast<Discrete_DecisionTreeNode*>(p);
+		std::pair<std::vector<std::string>, std::vector<DecisionTreeNode*>> child_pointers =
+			pp -> get_Child_Ptrs();
+		for (int i = 0; i < child_pointers.first.size(); i++) {
+			total_child_errors += prune(child_pointers.second[i], bins[child_pointers.first[i]]);
+		}
+	} 
+	else {
+
+		Continous_DecisionTreeNode* pp = static_cast<Continous_DecisionTreeNode*>(p);
+
+		std::map<int, std::vector<EX>> bins;
+		for (int i = 0; i < p_data.size(); i++) {
+			bins[pp -> get_Index(std::stof(p_data[i][p -> get_atb_Name()]))].push_back(p_data[i]);
+		}
+
+		std::vector<DecisionTreeNode*> child_pointers = pp -> get_Child_Ptrs();
+		for (int i = 0; i < child_pointers.size(); i++) {
+			total_child_errors = prune(child_pointers[i], bins[i]);
+		}
+	}
+	if (current_error <= total_child_errors) {
+		p -> setType("leaf");
+		p -> set_atb_Name(p -> get_Max_T_Val());
+		return current_error;
+	} else {
+		return total_child_errors;
+	}
 }
