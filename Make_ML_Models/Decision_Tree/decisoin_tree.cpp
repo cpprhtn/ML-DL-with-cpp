@@ -287,3 +287,25 @@ int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
 		return total_child_errors;
 	}
 }
+
+double DecisionTree::test(const std::vector<EX>& t_data) {
+
+	int correct = 0, wrong = 0;
+	for (int i = 0; i < t_data.size(); i++) {
+		Instance temp(t_data[i]);
+		if (classify(temp) == t_data[i].get_T_Class()) {
+			++correct;
+		} else {
+			++wrong;
+		}
+	}
+	return ((static_cast<double>(correct) / (wrong + correct)) * 100);
+}
+
+void DecisionTree::print() {
+	print(root);
+}
+
+std::string DecisionTree::classify(const Instance& inst) {
+	return classify(inst, root);
+}
