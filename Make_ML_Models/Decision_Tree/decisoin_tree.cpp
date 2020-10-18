@@ -282,7 +282,8 @@ int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
 		p -> setType("leaf");
 		p -> set_atb_Name(p -> get_Max_T_Val());
 		return current_error;
-	} else {
+	} 
+	else {
 		return total_child_errors;
 	}
 }
