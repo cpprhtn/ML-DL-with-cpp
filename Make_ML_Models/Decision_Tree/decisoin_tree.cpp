@@ -309,3 +309,15 @@ void DecisionTree::print() {
 std::string DecisionTree::classify(const Instance& inst) {
 	return classify(inst, root);
 }
+
+std::string DecisionTree::classify(const Instance& inst, DecisionTreeNode *p) {
+	if (p -> getType() == "leaf") {
+		return p -> get_atb_Name();
+	} else if (p -> getType() == "continuous") {
+		Continous_DecisionTreeNode *pp = static_cast<Continous_DecisionTreeNode*>(p);
+		return classify(inst, (*pp)[std::stof((inst[p -> get_atb_Name()]))]);
+	} else {
+		Discrete_DecisionTreeNode *pp = static_cast<Discrete_DecisionTreeNode*>(p);
+		return classify(inst, (*pp)[inst[p -> get_atb_Name()]]);
+	}
+}
