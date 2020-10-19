@@ -247,8 +247,8 @@ int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
 		return num_err;
 	}
 
-	int current_error = num_err;
-	int total_child_errors = 0;
+	int current_err = num_err;
+	int total_child_err = 0;
 
 	if (p -> getType() == "discrete") {
 
@@ -258,10 +258,10 @@ int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
 		}
 
 		Discrete_DecisionTreeNode* pp = static_cast<Discrete_DecisionTreeNode*>(p);
-		std::pair<std::vector<std::string>, std::vector<DecisionTreeNode*>> child_pointers =
+		std::pair<std::vector<std::string>, std::vector<DecisionTreeNode*>> child_ptrs =
 			pp -> get_Child_Ptrs();
-		for (int i = 0; i < child_pointers.first.size(); i++) {
-			total_child_errors += prune(child_pointers.second[i], bins[child_pointers.first[i]]);
+		for (int i = 0; i < child_ptrs.first.size(); i++) {
+			total_child_err += prune(child_ptrs.second[i], bins[child_ptrs.first[i]]);
 		}
 	} 
 	else {
@@ -273,18 +273,18 @@ int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
 			bins[pp -> get_Index(std::stof(p_data[i][p -> get_atb_Name()]))].push_back(p_data[i]);
 		}
 
-		std::vector<DecisionTreeNode*> child_pointers = pp -> get_Child_Ptrs();
-		for (int i = 0; i < child_pointers.size(); i++) {
-			total_child_errors = prune(child_pointers[i], bins[i]);
+		std::vector<DecisionTreeNode*> child_ptrs = pp -> get_Child_Ptrs();
+		for (int i = 0; i < child_ptrs.size(); i++) {
+			total_child_err = prune(child_ptrs[i], bins[i]);
 		}
 	}
-	if (current_error <= total_child_errors) {
+	if (current_err <= total_child_err) {
 		p -> setType("leaf");
 		p -> set_atb_Name(p -> get_Max_T_Val());
-		return current_error;
+		return current_err;
 	} 
 	else {
-		return total_child_errors;
+		return total_child_err;
 	}
 }
 
@@ -319,5 +319,26 @@ std::string DecisionTree::classify(const Instance& inst, DecisionTreeNode *p) {
 	} else {
 		Discrete_DecisionTreeNode *pp = static_cast<Discrete_DecisionTreeNode*>(p);
 		return classify(inst, (*pp)[inst[p -> get_atb_Name()]]);
+	}
+}
+
+
+void DecisionTree::print(DecisionTreeNode *p) {
+	std::cout << (p -> get_atb_Name()) << "\n";
+	if (p -> getType() == "discrete") {
+		Discrete_DecisionTreeNode* pp = static_cast<Discrete_DecisionTreeNode*>(p);
+		std::vector<DecisionTreeNode*> child_ptrs;
+		auto temp = pp -> get_Child_Ptrs();
+		for (int i = 0; i < temp.first.size(); i++) {
+			std::cout << temp.first[i] << "\n";
+			print(temp.second[i]);
+		}
+	} else if (p -> getType() == "continuous") {
+		Continous_DecisionTreeNode* pp = static_cast<Continous_DecisionTreeNode*>(p);
+		std::vector<DecisionTreeNode*> child_ptrs;
+		child_ptrs = pp -> get_Child_Ptrs();
+		for (int i = 0; i < child_ptrs.size(); i++) {
+			print(child_ptrs[i]);
+		}
 	}
 }
