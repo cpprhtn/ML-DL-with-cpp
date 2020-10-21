@@ -342,3 +342,44 @@ void DecisionTree::print(DecisionTreeNode *p) {
 		}
 	}
 }
+
+std::pair<double, std::vector<double> > DecisionTree::C_InfoGain(const std::vector<EX>& els,const std::string& atb_name){
+		std::set<std::pair<double,std::string> > C_val_set;
+		for(int i=0;i<els.size(); i++)
+				C_val_set.insert(make_pair(std::stof(els[i][atb_name]),els[i].get_T_Class()));
+
+		std::vector<std::pair<double,std::string> > C_val_list;
+		for(auto it = C_val_set.begin(); it!= C_val_set.end(); it++){
+				C_val_list.push_back(*it);
+		}
+
+		double pos,info_gain=-1;
+		double sum = els.size();
+
+		std::map<std::string, int> entropy_map;
+		for(int i=0; i< els.size(); i++)
+ 		 		entropy_map[els[i].get_T_Class()]++;
+
+ 	double entropy_1 = Entropy(entropy_map);
+
+ 	std::map<std::string, int> left, right = entropy_map;
+ 	left[C_val_list[0].second] += 1;
+	right[C_val_list[0].second] -= 1;
+	double Max_divide, Max_info = -1;
+	for(int i=1; i< C_val_list.size(); i++){
+
+		if(C_val_list[i].second != C_val_list[i-1].second) {
+			double curr_info = entropy_1 - ((left.size() * Entropy(left) + right.size() * Entropy(right)) / sum);
+			if (curr_info > Max_info) {
+				Max_info = curr_info;
+				Max_divide = (C_val_list[i].first + C_val_list[i - 1].first) / 2;
+			}
+		}
+		right[C_val_list[i].second] -= 1;
+		left[C_val_list[i].second] += 1;
+	}
+	
+	std::vector<double> temp;
+	temp.push_back(Max_divide);
+	return make_pair(Max_info,temp);
+}
