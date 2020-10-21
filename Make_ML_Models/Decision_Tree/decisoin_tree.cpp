@@ -378,7 +378,7 @@ std::pair<double, std::vector<double> > DecisionTree::C_InfoGain(const std::vect
 		right[C_val_list[i].second] -= 1;
 		left[C_val_list[i].second] += 1;
 	}
-	
+
 	std::vector<double> temp;
 	temp.push_back(Max_divide);
 	return make_pair(Max_info,temp);
