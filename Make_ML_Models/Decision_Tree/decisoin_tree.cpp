@@ -383,3 +383,60 @@ std::pair<double, std::vector<double> > DecisionTree::C_InfoGain(const std::vect
 	temp.push_back(Max_divide);
 	return make_pair(Max_info,temp);
 }
+
+double DecisionTree::discInfoGain(std::vector<EX>& els, const std::string& atb_name, bool in_place){
+	std::map<std::string, std::map<std::string, int>> bins;
+	for (int i = 0; i < els.size(); i++) {
+    	if (els[i][atb_name] != missing_atb) {
+      		bins[els[i].get_T_Class()][els[i][atb_name]]++;
+		}
+	}
+
+	//값 채워줌
+  	std::vector<int> missing;
+  	for (int i = 0; i < els.size(); i++) {
+    	if (els[i][atb_name] == missing_atb) {
+     		int max = -1;
+      		std::string atb_val;
+      		for (auto const &x: bins[els[i].get_T_Class()]) {
+        		if (x.second > max) {
+          			max = x.second;
+          			atb_val = x.first;
+        		}
+      		}
+      	els[i].set_atb_Val(atb_name, atb_val);
+      	missing.push_back(i);
+		}
+	}
+	  
+
+	
+  	std::map<std::string, std::map<std::string, int>> bins2;
+  	for (int i = 0; i < els.size(); i++) {
+   		bins2[els[i][atb_name]][els[i].get_T_Class()] += 1;
+  	}
+
+  	std::map<std::string, int> temp;
+  		for (int i = 0; i < els.size(); i++) {
+    		temp[els[i].get_T_Class()]++;
+  		}
+
+	// infogain 계산
+  	double ans1 = Entropy(temp);
+  	double ans2 = 0;
+  	for (auto const &x: pos_vals[atb_name]) {
+    	int local_cnt = 0;
+    	for (auto const &y: bins2[x]) {
+      		local_cnt += y.second;
+    	}
+    	ans2 += (local_cnt * Entropy(bins2[x]));
+  	}
+  	ans2 /= els.size();
+
+  	if (!in_place) {
+	  	for (int i = 0; i < missing.size(); i++) {
+	  		els[missing[i]].set_atb_Val(atb_name, "?");
+	  	}
+  	}
+  	return ans1 - ans2;
+}
