@@ -148,3 +148,5 @@ class Continous_DecisionTreeNode: public DecisionTreeNode {
 		std::vector<double> divide;
 		std::vector<DecisionTreeNode*> child;
 };
+
+const std::string missing_atb= "?";
