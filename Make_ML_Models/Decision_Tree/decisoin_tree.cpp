@@ -440,3 +440,19 @@ double DecisionTree::D_InfoGain(std::vector<EX>& els, const std::string& atb_nam
   	}
   	return ans1 - ans2;
 }
+
+double DecisionTree::Entropy(const std::map<std::string, int>& els){
+	double sum=0.0, ans=0.0;
+	std::vector<double> temp;
+	for( auto it = els.begin(); it!=els.end(); it++){
+		sum+= it -> second;
+		temp.push_back((double)it -> second)
+	}
+	for( int i = 0; i < temp.size(); i++){
+		if( temp[i] != 0){
+			ans += (temp[i]/sum)*(log2(temp[i]/sum));
+		}
+	}
+	ans *= -1.00;
+	return ans;
+}
