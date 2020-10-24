@@ -384,7 +384,7 @@ std::pair<double, std::vector<double> > DecisionTree::C_InfoGain(const std::vect
 	return make_pair(Max_info,temp);
 }
 
-double DecisionTree::discInfoGain(std::vector<EX>& els, const std::string& atb_name, bool in_place){
+double DecisionTree::D_InfoGain(std::vector<EX>& els, const std::string& atb_name, bool in_place){
 	std::map<std::string, std::map<std::string, int>> bins;
 	for (int i = 0; i < els.size(); i++) {
     	if (els[i][atb_name] != missing_atb) {
