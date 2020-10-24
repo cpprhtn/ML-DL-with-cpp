@@ -446,7 +446,7 @@ double DecisionTree::Entropy(const std::map<std::string, int>& els){
 	std::vector<double> temp;
 	for( auto it = els.begin(); it!=els.end(); it++){
 		sum+= it -> second;
-		temp.push_back((double)it -> second)
+		temp.push_back((double)it -> second);
 	}
 	for( int i = 0; i < temp.size(); i++){
 		if( temp[i] != 0){
