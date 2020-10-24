@@ -424,7 +424,7 @@ double DecisionTree::D_InfoGain(std::vector<EX>& els, const std::string& atb_nam
 	// infogain 계산
   	double ans1 = Entropy(temp);
   	double ans2 = 0;
-  	for (auto const &x: pos_vals[atb_name]) {
+  	for (auto const &x: p_vals[atb_name]) {
     	int local_cnt = 0;
     	for (auto const &y: bins2[x]) {
       		local_cnt += y.second;
