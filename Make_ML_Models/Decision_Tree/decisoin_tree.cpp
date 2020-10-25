@@ -489,4 +489,10 @@ void DecisionTree::printStats(const std::vector<EX>& t_data){
 			}
 		}
 	}
+	double precision=(double)(tp)/((double)(tp+fp));
+	double recall=(double)(tp)/((double)(tp+fn));
+	std::cout<<"Precision : "<<precision<<"\n";
+	std::cout<<"Recall : "<<recall<<"\n";
+	std::cout<<"Accuracy : "<<((static_cast<double>(correct) / (wrong + correct)) * 100)<<"\n";
+	std::cout<<"F-measure : "<<2/((1/precision)+(1/recall))<<"\n";
 }
