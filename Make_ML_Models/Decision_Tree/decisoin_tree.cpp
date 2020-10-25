@@ -481,7 +481,7 @@ void DecisionTree::printStats(const std::vector<EX>& t_data){
 			}
 		}
 		else{
-			if(classi==test_data[i].getTargetClass()){
+			if(classi==t_data[i].get_T_Class()){
 				tn++;
 			}
 			else{
