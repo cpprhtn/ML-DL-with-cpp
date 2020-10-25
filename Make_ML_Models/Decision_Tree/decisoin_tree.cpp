@@ -456,3 +456,37 @@ double DecisionTree::Entropy(const std::map<std::string, int>& els){
 	ans *= -1.00;
 	return ans;
 }
+
+void DecisionTree::printStats(const std::vector<EX>& t_data){
+	int tp=0, fp=0, tn=0, fn=0;
+	int correct=0, wrong=0;
+
+	for(int i=0; i<t_data.size(); i++){
+		Instance temp(t_data[i]);
+		std::string classi=classify(temp);
+		
+		if(classi == t_data[i].get_T_Class()){
+			++correct;
+		}
+		else{
+			++wrong;
+		}
+
+		if(classi == ">50K"){
+			if(classi == t_data[i].get_T_Class()){
+				tp++;
+			}
+			else{
+				fp++;
+			}
+		}
+		else{
+			if(classi==test_data[i].getTargetClass()){
+				tn++;
+			}
+			else{
+				fn++;
+			}
+		}
+	}
+}
