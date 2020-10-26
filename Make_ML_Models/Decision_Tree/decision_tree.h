@@ -81,11 +81,11 @@ class DecisionTree {
 		void add_T_Val(const std::vector<std::string>& target_values);
 
 		void build(const std::vector<EX>& train_data);
-        double test(const std::vector<EX>& test_data);
+        double test(const std::vector<EX>& t_data);
 		void prune(const std::vector<EX>& p_data);
 		
 		void print();
-		void printStats(const std::vector<EX>& test_data);
+		void printStats(const std::vector<EX>& t_data);
 
 		std::string classify(const Instance& inst);
 
