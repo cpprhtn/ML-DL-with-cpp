@@ -1,6 +1,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "decision_tree.h"
 
@@ -495,4 +497,40 @@ void DecisionTree::printStats(const std::vector<EX>& t_data){
 	std::cout<<"Recall : "<<recall<<"\n";
 	std::cout<<"Accuracy : "<<((static_cast<double>(correct) / (wrong + correct)) * 100)<<"\n";
 	std::cout<<"F-measure : "<<2/((1/precision)+(1/recall))<<"\n";
+}
+
+
+std::vector<std::vector<std::string> > Reader::readData(std::string file_loc){
+	std::ifstream fin(file_loc,std::ios::in);
+	std::vector<std::vector<std::string> > data;
+	while(!fin.eof()){
+		std::string s;
+		std::vector<std::string> atb;
+		fin>>s;
+		std::stringstream str(s);
+		while (str) {
+			std::string temp;
+			std::getline(str,temp,',');
+			atb.push_back(temp);
+		}
+		data.push_back(atb);
+	}
+	return data;
+}
+
+std::set<std::string> Reader::read_T_val(std::string file_loc, int n){
+	std::ifstream fin(file_loc,std::ios::in);
+	std::set<std::string> atb;
+	while(!fin.eof()){
+		std::string s;
+		fin>>s;
+		std::stringstream str(s);
+		for(int i=0;i<n;i++){
+			std::string temp;
+			std::getline(str,temp,',');
+			if(i==n-1)
+				atb.insert(temp);
+		}
+	}
+	return atb;
 }
