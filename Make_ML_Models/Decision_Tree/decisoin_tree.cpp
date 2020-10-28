@@ -500,7 +500,7 @@ void DecisionTree::printStats(const std::vector<EX>& t_data){
 }
 
 
-std::vector<std::vector<std::string> > Reader::readData(std::string file_loc){
+std::vector<std::vector<std::string> > Reader::read_Data(std::string file_loc){
 	std::ifstream fin(file_loc,std::ios::in);
 	std::vector<std::vector<std::string> > data;
 	while(!fin.eof()){
