@@ -35,7 +35,7 @@ class EX;
 
 class Reader {
 	public:
-		static std::vector<std::vector<std::string> > readData(std::string file_loc);
+		static std::vector<std::vector<std::string> > read_Data(std::string file_loc);
 		static std::set <std::string> read_T_val(std::string file_loc, int n);
 };
 
