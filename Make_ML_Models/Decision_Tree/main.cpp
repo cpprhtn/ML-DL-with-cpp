@@ -47,3 +47,16 @@ std::vector<EX> get_Data(const std::string& file_loc, const std::vector<std::str
  	}
 	return els;
 }
+
+int main(){
+	std::vector<std::string> T_values;
+	std::vector<std::string> atb_names;
+	T_values.push_back(">50K");
+	T_values.push_back("<=50K");
+
+	std::vector<std::vector<std::string>> dat = Reader::read_Data("../data/adult_attr");
+	std::vector<EX> prune_data = get_Data("../data/adult_data_prune", atb_names, true);
+	std::vector<EX> test_data = get_Data("../data/adult_test", atb_names, true);
+	std::vector<EX> examples=get_Data("../data/adult_data_train", atb_names, false);
+	std::vector<EX> rfexamples=get_Data("../data/adult_data", atb_names, false);
+}
