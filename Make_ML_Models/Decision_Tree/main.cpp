@@ -48,6 +48,14 @@ std::vector<EX> get_Data(const std::string& file_loc, const std::vector<std::str
 	return els;
 }
 
+std::vector<std::string> get_atb_Names(const std::vector<std::vector<std::string>>& dat) {
+	std::vector<std::string> atb_names;
+	for (int i = 0; i < dat.size(); i++) {
+		atb_names.push_back(dat[i][0]);
+	}
+	return atb_names;
+}
+
 int main(){
 	std::vector<std::string> T_values;
 	std::vector<std::string> atb_names;
