@@ -56,6 +56,20 @@ std::vector<std::string> get_atb_Names(const std::vector<std::vector<std::string
 	return atb_names;
 }
 
+void fill_atb_Info(const std::vector<std::vector<std::string>>& dat, DecisionTree& dt){
+	for (int i = 0; i < dat.size(); i++) {
+		std::vector<std::string> temp;
+		for (int j = 1; j < dat[i].size(); j++) {
+			if (dat[i][j] == "continuous") {
+				break;
+			} else {
+				temp.push_back(dat[i][j]);
+			}
+		}
+		dt.add_atb_Info(dat[i][0], temp);
+	}
+}
+
 int main(){
 	std::vector<std::string> T_values;
 	std::vector<std::string> atb_names;
