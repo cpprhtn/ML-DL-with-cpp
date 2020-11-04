@@ -76,17 +76,17 @@ int main(){
 	T_values.push_back(">50K");
 	T_values.push_back("<=50K");
 
-	std::vector<std::vector<std::string>> dat = Reader::read_Data("../data/adult_attr");
-	std::vector<EX> prune_data = get_Data("../data/adult_data_prune", atb_names, true);
-	std::vector<EX> test_data = get_Data("../data/adult_test", atb_names, true);
-	std::vector<EX> examples=get_Data("../data/adult_data_train", atb_names, false);
-	std::vector<EX> rfexamples=get_Data("../data/adult_data", atb_names, false);
+	std::vector<std::vector<std::string>> r_data = Reader::read_Data("./data/atb_data");
+	std::vector<EX> prune_data = get_Data("./data/prune_data", atb_names, true);
+	std::vector<EX> test_data = get_Data("./data/test_data", atb_names, true);
+	std::vector<EX> examples=get_Data("./data/train_data", atb_names, false);
+	std::vector<EX> rfexamples=get_Data("./data/rfdata", atb_names, false);
 
 	DecisionTree dt;
 
 	dt.add_T_Val(T_values);
 
-	fill_atb_Info(dat, dt);
+	fill_atb_Info(r_data, dt);
 
 	auto t1=std::time(NULL);
 	dt.build(examples);
@@ -103,5 +103,4 @@ int main(){
 	std::cout<<"After Pruning"<<"\n";
 	dt.printStats(test_data);
 	std::cout<<"Took "<<t2-t1<<" seconds"<<"\n\n";
-
 }
