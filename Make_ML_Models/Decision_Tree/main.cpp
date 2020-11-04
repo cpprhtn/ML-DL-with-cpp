@@ -81,4 +81,27 @@ int main(){
 	std::vector<EX> test_data = get_Data("../data/adult_test", atb_names, true);
 	std::vector<EX> examples=get_Data("../data/adult_data_train", atb_names, false);
 	std::vector<EX> rfexamples=get_Data("../data/adult_data", atb_names, false);
+
+	DecisionTree dt;
+
+	dt.add_T_Val(T_values);
+
+	fill_atb_Info(dat, dt);
+
+	auto t1=std::time(NULL);
+	dt.build(examples);
+	auto t2=std::time(NULL);
+
+	std::cout<<"Before Pruning"<<"\n";
+	dt.printStats(test_data);
+	std::cout<<"Took "<<t2-t1<<" seconds"<<"\n\n";
+
+	t1=std::time(NULL);
+	dt.prune(prune_data);
+	t2=std::time(NULL);
+
+	std::cout<<"After Pruning"<<"\n";
+	dt.printStats(test_data);
+	std::cout<<"Took "<<t2-t1<<" seconds"<<"\n\n";
+
 }
