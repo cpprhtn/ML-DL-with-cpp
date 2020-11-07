@@ -22,4 +22,4 @@
 - Decision Tree 1차 완료
 
 - Random Forest 진행중
-    - Decision Tree 코드 이용해서 구현할 예정
+    - Decision Tree 코드를 기반으로 구현할 예정
