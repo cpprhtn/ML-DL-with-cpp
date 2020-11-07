@@ -19,4 +19,7 @@
 - Naive Bayes 구현 (2배속)
 <a href="https://www.youtube.com/embed/uhv_9Mhi-Q4" target="_blank"><img src="https://user-images.githubusercontent.com/63298243/93894335-9300a180-fd29-11ea-811e-b8c80c88106e.png" width="854" height="480" border="10" /></a>
 
-- Decision Tree 진행중
+- Decision Tree 1차 완료
+
+- Random Forest 진행중
+    - Decision Tree 코드 이용해서 구현할 예정
