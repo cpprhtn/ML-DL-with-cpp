@@ -1,0 +1,9 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.306ex" height="2.176ex" style="vertical-align: -0.338ex;" viewBox="0 -791.3 562.5 936.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
+<title id="MathJax-SVG-1-Title">{\displaystyle {\boldsymbol {\theta }}}</title>
+<defs aria-hidden="true">
+<path stroke-width="1" id="E1-MJMATHBI-3B8" d="M213 -8Q130 -8 85 50T40 200V207Q40 303 83 428Q122 535 189 608Q279 702 381 702Q410 702 437 693T492 661T537 593T554 486Q554 428 539 362T495 230T425 111T330 25T213 -8ZM433 562Q433 600 419 625T377 651Q363 651 348 644T311 619T268 557T229 453Q225 441 217 411T208 378H401Q433 500 433 562ZM161 140Q161 43 217 43Q249 43 280 74Q310 103 332 150T378 287Q385 313 385 315Q385 316 289 316H192Q191 308 183 275T169 205T161 140Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#E1-MJMATHBI-3B8" x="0" y="0"></use>
+</g>
+</svg>
