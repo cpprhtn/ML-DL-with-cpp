@@ -534,3 +534,11 @@ std::set<std::string> Reader::read_T_val(std::string file_loc, int n){
 	}
 	return atb;
 }
+
+
+
+
+/* _________________________________________________________________________ */
+// random forest
+
+

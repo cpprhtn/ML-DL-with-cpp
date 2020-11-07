@@ -80,11 +80,11 @@ class DecisionTree {
 		void add_T_Val(const std::vector<std::string>& target_values);
 
 		void build(const std::vector<EX>& train_data);
-        double test(const std::vector<EX>& t_data);
+        double test(const std::vector<EX>& test_data);
 		void prune(const std::vector<EX>& p_data);
 		
 		void print();
-		void printStats(const std::vector<EX>& t_data);
+		void printStats(const std::vector<EX>& test_data);
 
 		std::string classify(const Instance& inst);
 
@@ -149,3 +149,24 @@ class Continous_DecisionTreeNode: public DecisionTreeNode {
 };
 
 const std::string missing_atb= "?";
+
+
+
+
+/* _________________________________________________________________________ */
+// random forest
+
+class RandomForest : public DecisionTree{
+
+	public:
+		RandomForest(int no_of_trees);
+
+        std::string classify(const Instance& inst);
+
+		void build(const std::vector<EX>& train_data);
+        double test(const std::vector<EX>& test_data);
+
+		void print();
+		void printStats(const std::vector<EX>& test_data);
+
+};

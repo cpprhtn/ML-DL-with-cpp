@@ -290,12 +290,12 @@ int DecisionTree::prune(DecisionTreeNode* p, std::vector<EX> p_data) {
 	}
 }
 
-double DecisionTree::test(const std::vector<EX>& t_data) {
+double DecisionTree::test(const std::vector<EX>& test_data) {
 
 	int correct = 0, wrong = 0;
-	for (int i = 0; i < t_data.size(); i++) {
-		Instance temp(t_data[i]);
-		if (classify(temp) == t_data[i].get_T_Class()) {
+	for (int i = 0; i < test_data.size(); i++) {
+		Instance temp(test_data[i]);
+		if (classify(temp) == test_data[i].get_T_Class()) {
 			++correct;
 		} else {
 			++wrong;
@@ -459,15 +459,15 @@ double DecisionTree::Entropy(const std::map<std::string, int>& els){
 	return ans;
 }
 
-void DecisionTree::printStats(const std::vector<EX>& t_data){
+void DecisionTree::printStats(const std::vector<EX>& test_data){
 	int tp=0, fp=0, tn=0, fn=0;
 	int correct=0, wrong=0;
 
-	for(int i=0; i<t_data.size(); i++){
-		Instance temp(t_data[i]);
+	for(int i=0; i<test_data.size(); i++){
+		Instance temp(test_data[i]);
 		std::string classi=classify(temp);
 		
-		if(classi == t_data[i].get_T_Class()){
+		if(classi == test_data[i].get_T_Class()){
 			++correct;
 		}
 		else{
@@ -475,7 +475,7 @@ void DecisionTree::printStats(const std::vector<EX>& t_data){
 		}
 
 		if(classi == ">50K"){
-			if(classi == t_data[i].get_T_Class()){
+			if(classi == test_data[i].get_T_Class()){
 				tp++;
 			}
 			else{
@@ -483,7 +483,7 @@ void DecisionTree::printStats(const std::vector<EX>& t_data){
 			}
 		}
 		else{
-			if(classi==t_data[i].get_T_Class()){
+			if(classi==test_data[i].get_T_Class()){
 				tn++;
 			}
 			else{
