@@ -17,6 +17,11 @@
 - Single layer Perceptron 구현
 - Multi layer Perceptron 구현
 - Naive Bayes 구현 (2배속)
+    - Gaussian NB
+    - Bernoulli NB
+    - Multinomial NB
+
+* Bernoulli NB Model에 대한 구현
 <a href="https://www.youtube.com/embed/uhv_9Mhi-Q4" target="_blank"><img src="https://user-images.githubusercontent.com/63298243/93894335-9300a180-fd29-11ea-811e-b8c80c88106e.png" width="854" height="480" border="10" /></a>
 
 - Decision Tree 1차 완료
