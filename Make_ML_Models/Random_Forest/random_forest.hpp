@@ -91,7 +91,7 @@ class DecisionTree {
 
 	protected:
 		int prune(DecisionTreeNode* p, std::vector<EX> p_data);
-		void build(std::vector<EX> train_data, DecisionTreeNode*& p, std::vector<std::string> check__atb_, int& nodes);
+		void build(std::vector<EX> train_data, DecisionTreeNode*& p, std::vector<std::string> check_atb, int& nodes);
 
 
 		std::string classify(const Instance& inst, DecisionTreeNode *p);
@@ -169,4 +169,13 @@ class RandomForest : public DecisionTree{
 		void print();
 		void printStats(const std::vector<EX>& test_data);
 
+
+	private:
+		std::vector<DecisionTreeNode*> trees;
+
+		//노드트리가 없을때
+		int no_trees;
+
+		void build(std::vector<EX> train_data,
+	DecisionTreeNode*& p, std::vector<std::string> check_atb, int& nodes);
 };
