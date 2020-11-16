@@ -542,3 +542,11 @@ std::set<std::string> Reader::read_T_val(std::string file_loc, int n){
 // random forest
 
 
+RandomForest::RandomForest(int no_trees){
+	
+	this->no_trees=no_trees;
+
+	trees=std::vector<DecisionTreeNode*>(no_trees);
+
+	srand(1);
+}
