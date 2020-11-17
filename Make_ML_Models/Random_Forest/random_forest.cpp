@@ -550,3 +550,23 @@ RandomForest::RandomForest(int no_trees){
 
 	srand(1);
 }
+
+
+void RandomForest::build(const std::vector<EX>& train_data){
+	for(int i=0;i<no_trees;i++){
+		std::vector<std::string> atb_all;
+		for (auto it = p_vals.begin(); it != p_vals.end(); it++) {
+			atb_all.push_back(it -> first);
+		}
+		int nodes = 0;
+		std::vector<EX> v;
+		
+
+		int x=sqrt(train_data.size());
+		for(int i=0;i<x;i++){
+			v.push_back(train_data[rand()%train_data.size()]);
+		}
+
+		build(v, trees[i], atb_all, nodes);
+	}
+}
