@@ -570,3 +570,32 @@ void RandomForest::build(const std::vector<EX>& train_data){
 		build(v, trees[i], atb_all, nodes);
 	}
 }
+
+void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::vector<std::string> check_atb, int& nodes) {
+
+	if (check_atb.empty()) {
+		p = new DecisionTreeNode;++nodes;
+		if (train_data.empty()) {
+			p -> set_atb_Name(target_values[0]);
+		}
+
+		else {
+			std::map<std::string, int> occ;
+			for (auto const& x: train_data) {
+				occ[x.get_T_Class()]++;
+			}
+			int max = -1;
+
+			std::string target_val;
+			for (auto const& x: occ) {
+				if (x.second > max) {
+					max = x.second;
+					target_val = x.first;
+				}
+			}
+			p -> set_atb_Name(target_val);
+		}
+		p -> setType("leaf");
+		return;
+	}
+}
