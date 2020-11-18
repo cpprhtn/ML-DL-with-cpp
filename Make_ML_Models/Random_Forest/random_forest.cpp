@@ -598,4 +598,16 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 		p -> setType("leaf");
 		return;
 	}
+	
+	if (train_data.empty()) {
+		p = new DecisionTreeNode;
+		++nodes;
+
+		p -> set_atb_Name(target_values[0]);
+		p -> setType("leaf");
+		return;
+	}
+
+	bool leaf = true;
+	std::string target_class = train_data[0].get_T_Class();
 }
