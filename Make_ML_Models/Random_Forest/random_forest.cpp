@@ -610,4 +610,10 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 
 	bool leaf = true;
 	std::string target_class = train_data[0].get_T_Class();
+	for (int i = 1; i < train_data.size(); i++) {
+		if (train_data[i].getTargetClass() != target_class) {
+			leaf = false;
+			break;
+		}
+	}
 }
