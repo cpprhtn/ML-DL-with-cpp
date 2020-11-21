@@ -621,9 +621,12 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 		p = new DecisionTreeNode;++nodes;
 		p -> set_atb_Name(target_class);
 		p -> setType("leaf");
-	} else {
+	} 
+	
+	else {
 		double max_gain = -1;
 		int max_index = 0;
 		std::vector<double> dividers;
 		bool is_cont;
+	}
 }
