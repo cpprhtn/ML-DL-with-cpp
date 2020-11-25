@@ -624,9 +624,44 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 	} 
 	
 	else {
-		double max_gain = -1;
+		double Max_gain = -1;
 		int max_index = 0;
 		std::vector<double> dividers;
 		bool is_cont;
+	}
+
+	int sqp=sqrt(check_atb.size());
+	std::vector<int> random_val;
+	for(int i=0;i<sqp;i++){
+		random_val.push_back(rand()%check_atb.size());
+	}
+
+	std::vector<std::string> check_atb_random;
+	for(int i=0;i<sqp;i++){
+		check_atb_random.push_back(check_atb[rand()%check_atb.size()]);
+	}
+
+    for (int i = 0; i < check_atb_random.size(); i++) {
+
+		if (p_vals[check_atb_random[i]].size() == 0) {
+			std::pair<double, std::vector<double>>temp = C_InfoGain(train_data, check_atb_random[i]);
+			double cand_gain = temp.first;
+				
+			if (cand_gain > Max_gain) {
+				Max_gain = cand_gain;
+				max_index = i;
+				is_cont = true;
+				dividers = temp.second;
+			}
+		} 
+		else {
+			double cand_gain = D_InfoGain(train_data, check_atb_random[i], false);
+
+			if (cand_gain > Max_gain) {
+				Max_gain = cand_gain;
+				max_index = i;
+				is_cont = false;
+			}
+		}
 	}
 }
