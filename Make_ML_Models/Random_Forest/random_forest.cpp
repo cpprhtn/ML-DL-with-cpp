@@ -577,9 +577,9 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 		p = new DecisionTreeNode;++nodes;
 		if (train_data.empty()) {
 			p -> set_atb_Name(target_values[0]);
-		}
-
+		} 
 		else {
+
 			std::map<std::string, int> occ;
 			for (auto const& x: train_data) {
 				occ[x.get_T_Class()]++;
@@ -598,11 +598,9 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 		p -> setType("leaf");
 		return;
 	}
-	
-	if (train_data.empty()) {
-		p = new DecisionTreeNode;
-		++nodes;
 
+	if (train_data.empty()) {
+		p = new DecisionTreeNode;++nodes;
 		p -> set_atb_Name(target_values[0]);
 		p -> setType("leaf");
 		return;
@@ -622,18 +620,17 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 		p -> set_atb_Name(target_class);
 		p -> setType("leaf");
 	} 
-	
 	else {
-		double Max_gain = -1;
+		double max_gain = -1;
 		int max_index = 0;
 		std::vector<double> dividers;
 		bool is_cont;
-	}
 
-	int sqp=sqrt(check_atb.size());
-	std::vector<int> random_val;
+  	int sqp=sqrt(check_atb.size());
+	std::vector<int> random_values;
+	
 	for(int i=0;i<sqp;i++){
-		random_val.push_back(rand()%check_atb.size());
+		random_values.push_back(rand()%check_atb.size());
 	}
 
 	std::vector<std::string> check_atb_random;
@@ -642,25 +639,75 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 	}
 
     for (int i = 0; i < check_atb_random.size(); i++) {
+			if (p_vals[check_atb_random[i]].size() == 0) {
+				// if continous attribute
+				std::pair<double, std::vector<double>>temp = C_InfoGain(
+					train_data, check_atb_random[i]);
+				double cand_gain = temp.first;
+				if (cand_gain > max_gain) {
+					max_gain = cand_gain;
+					max_index = i;
+					is_cont = true;
+					dividers = temp.second;
+				}
+			} else {
+				double cand_gain = D_InfoGain(train_data, check_atb_random[i], false);
 
-		if (p_vals[check_atb_random[i]].size() == 0) {
-			std::pair<double, std::vector<double>>temp = C_InfoGain(train_data, check_atb_random[i]);
-			double cand_gain = temp.first;
-				
-			if (cand_gain > Max_gain) {
-				Max_gain = cand_gain;
-				max_index = i;
-				is_cont = true;
-				dividers = temp.second;
+				if (cand_gain > max_gain) {
+					max_gain = cand_gain;
+					max_index = i;
+					is_cont = false;
+				}
 			}
-		} 
-		else {
-			double cand_gain = D_InfoGain(train_data, check_atb_random[i], false);
+		}
 
-			if (cand_gain > Max_gain) {
-				Max_gain = cand_gain;
-				max_index = i;
-				is_cont = false;
+    std::string atb_name = check_atb_random[max_index];
+    auto iterator_to_erase=check_atb.begin();
+    for(auto a=check_atb.begin();a!=check_atb.end();a++){
+    	if(*a==atb_name){
+    		iterator_to_erase=a;
+    		break;
+    	}
+    }
+
+    check_atb.erase(iterator_to_erase);
+
+
+    if (is_cont) {
+      p = new Continous_DecisionTreeNode;++nodes;
+      p -> setType("continuous");
+      p -> set_atb_Name(atb_name);
+
+      Continous_DecisionTreeNode *pp = static_cast<Continous_DecisionTreeNode*>(p);
+      pp -> set_Divide(dividers);
+
+      std::vector<std::vector<EX>> bins;
+      bins.resize(dividers.size() + 1);
+      for (int i = 0; i < train_data.size(); i++) {
+      	bins[pp -> get_Index(std::stof(train_data[i][atb_name]))].push_back(train_data[i]);
+      }
+
+      for (int i = 0; i <= dividers.size(); i++) {
+        build(bins[i], pp -> get_Child_Ptr(i), check_atb, nodes);
+      }
+
+    } else {
+      D_InfoGain(train_data, atb_name, true);
+
+      p = new Discrete_DecisionTreeNode;++nodes;
+      p -> setType("discrete");
+      p -> set_atb_Name(atb_name);
+
+      Discrete_DecisionTreeNode *pp = static_cast<Discrete_DecisionTreeNode*>(p);
+
+      std::map<std::string, std::vector<EX>> bins;
+      for (int i = 0; i < train_data.size(); i++) {
+      	bins[train_data[i][atb_name]].push_back(train_data[i]);
+      }
+
+			for (int i = 0; i < p_vals[atb_name].size(); i++) {
+				build(bins[p_vals[atb_name][i]], (*pp)[p_vals[atb_name][i]],
+					check_atb, nodes);
 			}
 		}
 	}
