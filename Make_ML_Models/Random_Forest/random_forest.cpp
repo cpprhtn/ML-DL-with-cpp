@@ -712,3 +712,26 @@ void RandomForest::build(std::vector<EX> train_data, DecisionTreeNode*& p, std::
 		}
 	}
 }
+
+
+std::string RandomForest::classify(const Instance& inst) {
+
+	std::unordered_map<std::string,int> count;
+	for(auto a=target_values.begin();a!=target_values.end();a++){
+		count[*a]=0;
+	}
+	for(auto a=trees.begin();a!=trees.end();a++){
+		std::string s=DecisionTree::classify(inst, *a);
+		count[s]++;
+	}
+
+	std::string ans=count.begin()->first;
+	int max=count.begin()->second;
+	for(auto a=count.begin();a!=count.end();a++){
+		if(a->second>max){
+			ans=a->first;
+			max=a->second;
+		}
+	}
+	return ans;
+}
