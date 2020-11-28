@@ -735,3 +735,24 @@ std::string RandomForest::classify(const Instance& inst) {
 	}
 	return ans;
 }
+
+void RandomForest::print() {
+	for(auto a=trees.begin();a!=trees.end();a++){
+		DecisionTree::print(*a);
+	}
+}
+
+
+double RandomForest::test(const std::vector<EX>& test_data) {
+
+	int correct = 0, wrong = 0;
+	for (int i = 0; i < test_data.size(); i++) {
+		Instance temp(test_data[i]);
+		if (classify(temp) == test_data[i].get_T_Class()) {
+			++correct;
+		} else {
+			++wrong;
+		}
+	}
+	return ((static_cast<double>(correct) / (wrong + correct)) * 100);
+}
