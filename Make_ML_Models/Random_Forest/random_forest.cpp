@@ -758,3 +758,36 @@ double RandomForest::test(const std::vector<EX>& test_data) {
 }
 
 
+void RandomForest::printStats(const std::vector<EX>& test_data){
+
+	int tp=0,fp=0,tn=0,fn=0;
+	int correct=0,wrong=0;
+	for(int i=0;i<test_data.size();i++){
+		Instance temp(test_data[i]);
+		std::string classi=classify(temp);
+		if (classi == test_data[i].get_T_Class()) {
+			++correct;
+		} else {
+			++wrong;
+		}
+		if(classi==">50K"){
+			if(classi==test_data[i].get_T_Class()){
+				tp++;
+			}else{
+				fp++;
+			}
+		}else{
+			if(classi==test_data[i].get_T_Class()){
+				tn++;
+			}else{
+				fn++;
+			}
+		}
+	}
+	double precision=(double)(tp)/((double)(tp+fp));
+	double recall=(double)(tp)/((double)(tp+fn));
+	std::cout<<"Precision : "<<precision<<"\n";
+	std::cout<<"Recall : "<<recall<<"\n";
+	std::cout<<"Accuracy : "<<((static_cast<double>(correct) / (wrong + correct)) * 100)<<"\n";
+	std::cout<<"F-measure : "<<2/((1/precision)+(1/recall))<<"\n";
+}
