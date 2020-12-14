@@ -5,7 +5,7 @@
 #include <ctime>
 #include <fstream>
 
-#include "random_forest.h"
+#include "random_forest.hpp"
 
 std::vector<EX> get_Data(const std::string& file_loc, const std::vector<std::string>& atb_names, bool have_Data) {
 
@@ -103,4 +103,18 @@ int main(){
 	std::cout<<"After Pruning"<<"\n";
 	dt.printStats(test_data);
 	std::cout<<"Took "<<t2-t1<<" seconds"<<"\n\n";
+
+	int i=500;
+	RandomForest rf(i);
+	rf.add_T_Val(T_values);
+	fill_atb_Info(data, rf);
+
+	t1=std::time(NULL);
+	rf.build(examples);
+	t2=std::time(NULL);
+	std::cout<<"Random Forests : "<<i<<" trees"<<"\n";
+	rf.printStats(test_data);
+	std::cout<<"Took "<<t2-t1<<" seconds"<<"\n";
+
+	return 0;
 }
