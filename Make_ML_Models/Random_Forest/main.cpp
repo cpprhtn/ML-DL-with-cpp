@@ -56,17 +56,17 @@ std::vector<std::string> get_atb_Names(const std::vector<std::vector<std::string
 	return atb_names;
 }
 
-void fill_atb_Info(const std::vector<std::vector<std::string>>& f_data, DecisionTree& dt){
-	for (int i = 0; i < f_data.size(); i++) {
+void fill_atb_Info(const std::vector<std::vector<std::string>>& dat, DecisionTree& dt){
+	for (int i = 0; i < dat.size(); i++) {
 		std::vector<std::string> temp;
-		for (int j = 1; j < f_data[i].size(); j++) {
-			if (f_data[i][j] == "continuous") {
+		for (int j = 1; j < dat[i].size(); j++) {
+			if (dat[i][j] == "continuous") {
 				break;
 			} else {
-				temp.push_back(f_data[i][j]);
+				temp.push_back(dat[i][j]);
 			}
 		}
-		dt.add_atb_Info(f_data[i][0], temp);
+		dt.add_atb_Info(dat[i][0], temp);
 	}
 }
 
@@ -107,7 +107,7 @@ int main(){
 	int i=500;
 	RandomForest rf(i);
 	rf.add_T_Val(T_values);
-	fill_atb_Info(f_data, rf);
+	fill_atb_Info(dat, rf);
 
 	t1=std::time(NULL);
 	rf.build(examples);
