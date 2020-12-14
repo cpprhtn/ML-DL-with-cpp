@@ -107,7 +107,8 @@ int main(){
 	int i=500;
 	RandomForest rf(i);
 	rf.add_T_Val(T_values);
-	fill_atb_Info(dat, rf);
+	fill_atb_Info(r_data, rf);
+
 
 	t1=std::time(NULL);
 	rf.build(examples);
