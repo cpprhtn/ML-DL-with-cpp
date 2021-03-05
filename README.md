@@ -27,5 +27,5 @@
 
 - Decision Tree 1차 완료
 
-- Random Forest 진행중
-    - Decision Tree 코드를 기반으로 구현할 예정
+- Random Forest 구현완료
+    - Decision Tree 코드를 기반으로 구현
